@@ -23,4 +23,9 @@ public class Category extends BaseEntity{
 
     @ManyToOne(optional = false)
     private User user;
+
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

@@ -38,9 +38,20 @@ public class User extends BaseEntity{
     @OneToMany(mappedBy = "user")
     private List<Saving> savings;
 
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.budgets = new ArrayList<>();
+        this.expenses = new ArrayList<>();
+        this.savings = new ArrayList<>();
+        this.registrationDate = LocalDate.now();
+    }
+
     public User() {
         this.budgets = new ArrayList<>();
         this.expenses = new ArrayList<>();
         this.savings = new ArrayList<>();
+        this.registrationDate = LocalDate.now();
     }
 }
