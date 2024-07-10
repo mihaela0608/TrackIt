@@ -15,6 +15,8 @@ Report Generation: Generate comprehensive financial reports to gain insights int
 
 # Technologies Used:
 Frontend: HTML, CSS, Thymeleaf (for server-side templating)
+
 Backend: Spring Boot (Java)
+
 Database: MySQL 
 
