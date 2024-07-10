@@ -6,10 +6,14 @@ TrackIt provides a convenient way to monitor your expenses, create budgets, and 
 
 # Key Features
 Registration and Login: Users can create an account and log in to the financial management system.
+
 Expense Tracking: Ability to record daily expenses and generate summarized statistical data.
+
 Setting Financial Goals: Support for setting goals and tracking progress.
+
 Report Generation: Generate comprehensive financial reports to gain insights into your financial health.
-Technologies Used
+
+# Technologies Used:
 Frontend: HTML, CSS, Thymeleaf (for server-side templating)
 Backend: Spring Boot (Java)
 Database: MySQL 
