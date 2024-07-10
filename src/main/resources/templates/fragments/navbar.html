@@ -1,0 +1,21 @@
+<!-- fragments/navbar.html -->
+
+<header th:fragment="navbar">
+    <nav>
+        <div class="logo">
+            <h1><a href="#">TrackIt</a></h1>
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a th:href="@{/register}">Register</a></li>
+            <li><a href="#about">Login</a></li>
+            <li class="profile-icon">
+                <i class="fas fa-user"></i>
+                <div class="dropdown-menu">
+                    <a href="#">Profile</a>
+                    <a href="#">Sign Out</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
