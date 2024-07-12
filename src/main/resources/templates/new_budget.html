@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Budget</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/new_budget.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="budget-form-container">
+    <div class="budget-form">
+        <h2>Create New Budget</h2>
+        <form th:action="@{/create-budget}" method="post" th:object="${budgetData}">
+
+            <div class="input-icon">
+                <label for="categoryName">Category</label>
+                <i class="fas fa-list"></i>
+                <select th:field="*{categoryName}" id="categoryName" name="categoryName" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+                </select>
+                <p th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}"></p>
+            </div>
+
+            <div class="input-icon">
+                <label for="amount">Amount</label>
+                <i class="fas fa-dollar-sign"></i>
+                <input th:field="*{amount}" type="number" id="amount" name="amount" required min="0" step="0.01">
+                <p th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></p>
+            </div>
+
+
+            <button type="submit">Create Budget</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

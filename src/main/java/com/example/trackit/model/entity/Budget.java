@@ -20,6 +20,8 @@ public class Budget extends BaseEntity{
     @ManyToOne(optional = false)
     private User user;
 
+
+
     @ManyToOne(optional = false)
     private Category category;
 
