@@ -3,17 +3,21 @@
 <header th:fragment="navbar">
     <nav>
         <div class="logo">
-            <h1><a href="#">TrackIt</a></h1>
+            <h1><a th:href="@{/}">TrackIt</a></h1>
         </div>
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a th:href="@{/home}">Home</a></li>
             <li><a th:href="@{/register}">Register</a></li>
             <li><a th:href="@{/login}">Login</a></li>
             <li class="profile-icon">
                 <i class="fas fa-user"></i>
                 <div class="dropdown-menu">
                     <a href="#">Profile</a>
-                    <a href="#">Sign Out</a>
+                    <div>
+                        <form th:action="@{/logout}" th:method="post">
+                            <button type="submit" class="logout-button">Logout</button>
+                        </form>
+                    </div>
                 </div>
             </li>
         </ul>

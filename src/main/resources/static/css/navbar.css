@@ -95,7 +95,8 @@ ul li a:hover {
     pointer-events: none;
 }
 
-.profile-icon:hover .dropdown-menu {
+.profile-icon:hover .dropdown-menu,
+.dropdown-menu:hover {
     display: block;
     opacity: 1;
     pointer-events: auto;
@@ -111,5 +112,22 @@ ul li a:hover {
 }
 
 .dropdown-menu a:hover {
+    background: #f0f2f5;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    display: block;
+    text-align: left;
+    width: 100%;
+}
+
+.logout-button:hover {
     background: #f0f2f5;
 }

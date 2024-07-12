@@ -15,29 +15,34 @@
 <div class="registration-flex">
     <div class="registration-form">
         <h2>Register</h2>
-        <form action="/register" method="post">
+        <form th:action="@{/register}" th:method="post" th:object="${userData}">
             <div class="input-icon">
                 <label for="username">Username</label>
                 <i class="fas fa-user"></i>
-                <input type="text" id="username" name="username" required>
+                <input th:field="*{username}" type="text" id="username" name="username" required>
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></div>
             </div>
 
             <div class="input-icon">
                 <label for="email">Email Address</label>
                 <i class="fas fa-envelope"></i>
-                <input type="email" id="email" name="email" required>
+                <input th:field="*{email}" type="email" id="email" name="email" required>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
+                <div th:if="${occupied}" class="error">Email is already occupied</div>
             </div>
 
             <div class="input-icon">
                 <label for="password">Password</label>
                 <i class="fas fa-lock"></i>
-                <input type="password" id="password" name="password" required>
+                <input th:field="*{password}" type="password" id="password" name="password" required>
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
             </div>
 
             <div class="input-icon">
                 <label for="confirm-password">Confirm Password</label>
                 <i class="fas fa-lock"></i>
-                <input type="password" id="confirm-password" name="confirm-password" required>
+                <input th:field="*{confirmPassword}" type="password" id="confirm-password" name="confirm-password" required>
+                <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></div>
             </div>
 
             <button type="submit">Register</button>

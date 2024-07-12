@@ -15,11 +15,12 @@
 <div class="login-flex">
     <div class="login-form">
         <h2>Login</h2>
-        <form action="/login" method="post">
+        <form th:action="@{/login}" th:method="post">
+            <div th:if="${invalid}" class="error">Invalid email or password</div>
             <div class="input-icon">
-                <label for="username">Username</label>
+                <label for="email">Email</label>
                 <i class="fas fa-user"></i>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="email" name="email" required>
             </div>
 
             <div class="input-icon">

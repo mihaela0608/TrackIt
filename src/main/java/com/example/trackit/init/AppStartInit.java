@@ -1,11 +1,12 @@
 package com.example.trackit.init;
 
+import com.example.trackit.model.dto.UserRegisterDto;
 import com.example.trackit.model.entity.Category;
 import com.example.trackit.model.entity.Role;
-import com.example.trackit.model.entity.User;
 import com.example.trackit.repository.CategoryRepository;
 import com.example.trackit.repository.RoleRepository;
 import com.example.trackit.repository.UserRepository;
+import com.example.trackit.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ public class AppStartInit implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
     private final Map<String, String> categoryDescriptions = Map.ofEntries(
             Map.entry("Groceries", "Expenses for purchasing food and household supplies."),
             Map.entry("Utilities", "Monthly expenses for electricity, water, gas, and other utilities."),
@@ -28,13 +30,15 @@ public class AppStartInit implements CommandLineRunner {
             Map.entry("Education", "Expenses for tuition, books, and other educational materials."),
             Map.entry("Dining Out", "Expenses for eating at restaurants and cafes."),
             Map.entry("Clothing", "Expenses for purchasing clothes and accessories."),
-            Map.entry("Gifts", "Money spent on gifts for family, friends, and special occasions.")
+            Map.entry("Gifts", "Money spent on gifts for family, friends, and special occasions."),
+            Map.entry("Other", "Money left")
     );
 
-    public AppStartInit(RoleRepository roleRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
+    public AppStartInit(RoleRepository roleRepository, CategoryRepository categoryRepository, UserRepository userRepository, UserService userService) {
         this.roleRepository = roleRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -45,9 +49,7 @@ public class AppStartInit implements CommandLineRunner {
             roleRepository.save(new Role("USER"));
         }
         if (userRepository.count() == 0){
-            User user = new User("admin", "admin@gmail.com", "adminAdminov");
-            user.setRole(roleRepository.findById(1L).get());
-            userRepository.save(user);
+            userService.registerUser(new UserRegisterDto("admin_1", "adminov@gmail.com", "admin11", "admin11"));
         }
         if (categoryRepository.count() == 0){
             for (String name : categoryDescriptions.keySet()) {
