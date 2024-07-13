@@ -16,6 +16,7 @@
     <div class="budget-form">
         <h2>Create New Budget</h2>
         <form th:action="@{/create-budget}" method="post" th:object="${budgetData}">
+            <p th:if="${exists}" >Budget for this category already exists</p>
 
             <div class="input-icon">
                 <label for="categoryName">Category</label>

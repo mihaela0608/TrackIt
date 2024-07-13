@@ -10,6 +10,8 @@ import com.example.trackit.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -33,6 +35,7 @@ public class AppStartInit implements CommandLineRunner {
             Map.entry("Gifts", "Money spent on gifts for family, friends, and special occasions."),
             Map.entry("Other", "Money left")
     );
+
 
     public AppStartInit(RoleRepository roleRepository, CategoryRepository categoryRepository, UserRepository userRepository, UserService userService) {
         this.roleRepository = roleRepository;

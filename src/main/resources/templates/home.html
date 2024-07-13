@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackIt Overview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="css/navbar.css" rel="stylesheet">
+    <link href="css/home.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<h1>Track Your Financial Progress Effectively</h1>
+<div class="container">
+    <div class="column">
+        <div class="section budget">
+            <h2><span class="icon">💰</span>Budget</h2>
+            <p class="motivational">"Set your budget and track your spending to save more."</p>
+            <div class="btn-container">
+                <a th:href="@{/create-budget}" class="btn">Add New</a>
+                <button class="btn">View All</button>
+            </div>
+        </div>
+
+        <div class="section categories">
+            <h2><span class="icon">📊</span>Categories</h2>
+            <p class="motivational">"Manage your categories for better spending."</p>
+            <div class="scrollable">
+                <div class="item">
+                    <span>Food</span>
+                    <button class="btn">Details</button>
+                </div>
+                <div class="item">
+                    <span>Transport</span>
+                    <button class="btn">Details</button>
+                </div>
+                <div class="item">
+                    <span>Entertainment</span>
+                    <button class="btn">Details</button>
+                </div>
+                <div class="item">
+                    <span>Health</span>
+                    <button class="btn">Details</button>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn">Add New</button>
+                <button class="btn">View All</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="column center-column">
+        <p class="profile-motivational motivational">"Success is about building a future you can be proud of. Every small step brings you closer to your financial goals. Believe in yourself and keep pushing forward!"</p>
+        <div class="btn-container profile-btn">
+            <button class="btn">Go to Profile</button>
+        </div>
+        <p class="profile-motivational motivational" style="margin-top: 15px;">"Curious about how far you've come? Check your profile now to discover your financial progress and see how each step gets you closer to your goals!"</p>
+    </div>
+
+
+    <div class="column">
+        <div class="section savings">
+            <h2><span class="icon">💵</span>Savings</h2>
+            <p class="motivational">"Save today for a better tomorrow."</p>
+            <div class="btn-container">
+                <button class="btn">Add New</button>
+                <button class="btn">View All</button>
+            </div>
+        </div>
+
+        <div class="section expenses">
+            <h2><span class="icon">💸</span>Expenses</h2>
+            <p class="motivational">"Keep track of your expenses to stay on budget."</p>
+            <div class="scrollable">
+                <div class="item">
+                    <span>Dining Out: $120</span>
+                    <button class="btn">Details</button>
+                </div>
+                <div class="item">
+                    <span>Gym Membership: $60</span>
+                    <button class="btn">Details</button>
+                </div>
+                <div class="item">
+                    <span>Subscriptions: $40</span>
+                    <button class="btn">Details</button>
+                </div>
+                <div class="item">
+                    <span>Gifts: $100</span>
+                    <button class="btn">Details</button>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn">Add New</button>
+                <button class="btn">View All</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
