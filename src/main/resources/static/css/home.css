@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background: #f5f7fa;
+    background: linear-gradient(120deg, #f5f7fa, #e0f7fa);
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,68 +10,79 @@ body {
 }
 
 h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
+    font-size: 36px;
+    margin-bottom: 40px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     color: #1a237e;
+    animation: fadeInDown 1s ease;
 }
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
     width: 100%;
     max-width: 1200px;
     padding: 20px;
-}
-
-.column {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    flex: 1 1 300px;
-    max-width: 350px;
+    align-items: center;
+    animation: fadeIn 1s ease;
 }
 
 .section {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    margin-bottom: 40px;
 }
 
-.section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+.card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+    max-width: 400px;
+    background: linear-gradient(120deg, #f0f4c3, #e0f7fa);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(120deg, #e0f7fa, #f0f4c3);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-header .icon {
+    font-size: 30px;
+    margin-right: 15px;
+    color: #1a237e;
+}
+
+.card-header h2 {
+    font-size: 28px;
+    color: #1a237e;
 }
 
 .scrollable {
     overflow-y: auto;
-    max-height: 150px;
-    margin-bottom: 10px;
-}
-
-.section h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    color: #1a237e;
-}
-
-.section .icon {
-    font-size: 24px;
-    margin-right: 10px;
+    max-height: 200px;
+    margin-bottom: 20px;
+    padding-right: 10px;
 }
 
 .motivational {
-    font-size: 16px;
+    font-size: 18px;
     color: #555;
     text-align: center;
     width: 100%;
-    margin: 10px 0;
+    margin: 20px 0;
     transition: color 0.3s;
 }
 
@@ -83,17 +94,17 @@ h1 {
     display: flex;
     justify-content: center;
     width: 100%;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 .btn {
     background-color: #1a237e;
     color: white;
     border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 16px;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 18px;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
@@ -105,27 +116,28 @@ h1 {
     transform: scale(1.05);
 }
 
-
-.section.budget {
-    background-color: #e3f2fd;
+.btn-small {
+    background-color: #1a237e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-.section.savings {
-    background-color: #e8f5e9;
-}
-
-.section.categories {
-    background-color: #fffde7;
-}
-
-.section.expenses {
-    background-color: #ffebee;
+.btn-small:hover {
+    background-color: #0d47a1;
+    transform: scale(1.05);
 }
 
 .item {
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #ddd;
 }
 
@@ -133,21 +145,53 @@ h1 {
     border-bottom: none;
 }
 
-.center-column {
-    align-items: center;
-    flex: 1 1 300px;
-    max-width: 700px;
+.center-section {
     text-align: center;
+    max-width: 800px;
+    margin-bottom: 50px;
 }
 
 .profile-motivational {
-    font-size: 20px;
-    line-height: 1.5;
+    font-size: 22px;
+    line-height: 1.6;
     color: #333;
+    animation: fadeInUp 1s ease;
 }
 
 .profile-btn {
-    margin-top: 20px;
+    margin-top: 30px;
+    animation: fadeInUp 1.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 768px) {
@@ -155,12 +199,11 @@ h1 {
         font-size: 28px;
     }
 
-    .column {
-        flex: 1 1 100%;
+    .card {
         max-width: none;
     }
 
-    .center-column {
+    .center-section {
         max-width: 100%;
     }
 }
