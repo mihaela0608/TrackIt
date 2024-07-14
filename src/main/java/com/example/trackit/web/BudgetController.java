@@ -4,6 +4,7 @@ import com.example.trackit.model.dto.AddBudgetDto;
 import com.example.trackit.repository.CategoryRepository;
 import com.example.trackit.service.BudgetService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,8 +44,10 @@ public class BudgetController {
         return "redirect:/home";
     }
     @GetMapping("all-budgets")
-    public String viewAllBudgets(Model model){
-//        model.addAttribute("budgets", budgetService.viewAll());
+    public String viewAllBudgets(Model model)  {
+        model.addAttribute("budgets", budgetService.viewAll());
         return "all-budgets";
     }
+    //TODO : THE LINK IS MADE BUT WILL NEED SOME CHANGES AND IN THE SERVICE WE HAVE METHOD
+
 }

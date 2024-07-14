@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
     <link href="css/all-budgets.css" rel="stylesheet">
     <title>Budgets</title>
@@ -14,83 +18,18 @@
     <h1>Budget List</h1>
     <button class="add-budget-btn">Add Budget</button>
     <div class="budget-list">
-        <!-- Budget items -->
-        <div class="budget-item">
-            <h2>Groceries</h2>
-            <div class="amount">100.00 BGN</div>
+        <div class="budget-item" th:each="budget: ${budgets}">
+            <h2 th:text="${budget.categoryName}">Groceries</h2>
+            <div th:text="${budget.amount}" class="amount">100.00 BGN</div>
             <div class="btn-container">
-                <button class="edit-btn">Edit</button>
+                <button th:href="@{/edit-budget/{category}(category = ${budget.getCategoryName()})}" class="edit-btn">Edit</button>
                 <button class="delete-btn">Delete</button>
             </div>
         </div>
-        <div class="budget-item">
-            <h2>Rent</h2>
-            <div class="amount">500.00 BGN</div>
-            <div class="btn-container">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <div class="budget-item">
-            <h2>Utilities</h2>
-            <div class="amount">150.00 BGN</div>
-            <div class="btn-container">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <div class="budget-item">
-            <h2>Transportation</h2>
-            <div class="amount">80.00 BGN</div>
-            <div class="btn-container">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <div class="budget-item">
-            <h2>Entertainment</h2>
-            <div class="amount">200.00 BGN</div>
-            <div class="btn-container">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <div class="budget-item">
-            <h2>Health</h2>
-            <div class="amount">120.00 BGN</div>
-            <div class="btn-container">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <div class="budget-item">
-            <h2>Insurance</h2>
-            <div class="amount">90.00 BGN</div>
-            <div class="btn-container">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <div class="budget-item">
-            <h2>Education</h2>
-            <div class="amount">300.00 BGN</div>
-            <div class="btn-container">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <div class="budget-item">
-            <h2>Miscellaneous</h2>
-            <div class="amount">50.00 BGN</div>
-            <div class="btn-container">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <!-- Add more budget items here as needed -->
+
     </div>
     <div class="home-button-container">
-        <a href="#" class="home-btn">Home Page</a>
+        <a th:href="@{/home}" class="home-btn">Home Page</a>
     </div>
 </div>
 </body>

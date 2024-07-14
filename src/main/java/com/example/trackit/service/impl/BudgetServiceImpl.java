@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,11 +41,22 @@ public class BudgetServiceImpl implements BudgetService {
     }
 
     @Override
+    @Transactional
     public List<ViewAllBudgetDto> viewAll() {
         User user = userHelperService.getUser();
         return user.getBudgets().stream().map(this::map).toList();
 
     }
+
+    @Override
+    public void editBudget(String categoryName, BigDecimal amount) {
+        Budget budget = userHelperService.getUser().getBudgets().stream()
+                .filter(b -> b.getCategory().getName().equals(categoryName))
+                .findFirst().orElseThrow();
+        budget.setAmount(amount);
+        budgetRepository.save(budget);
+    }
+
     private ViewAllBudgetDto map(Budget budget){
         return modelMapper.map(budget, ViewAllBudgetDto.class);
     }
