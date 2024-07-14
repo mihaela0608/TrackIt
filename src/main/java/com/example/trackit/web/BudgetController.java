@@ -42,4 +42,9 @@ public class BudgetController {
         }
         return "redirect:/home";
     }
+    @GetMapping("all-budgets")
+    public String viewAllBudgets(Model model){
+//        model.addAttribute("budgets", budgetService.viewAll());
+        return "all-budgets";
+    }
 }

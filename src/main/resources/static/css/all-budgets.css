@@ -1,0 +1,140 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f0f4c3, #b2ebf2);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #388e3c;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.add-budget-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 14px 28px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-budget-btn:hover {
+    background-color: #1976d2;
+    transform: translateY(-2px);
+}
+
+.budget-list {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    padding: 10px;
+}
+
+.budget-item {
+    margin: 10px 0;
+    padding: 12px; /* Подобрено пространство */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.budget-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.amount {
+    font-weight: bold;
+    color: #d32f2f;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-btn, .delete-btn {
+    padding: 10px 20px; /* Увеличени бутони */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.edit-btn {
+    background-color: #4caf50; /* Зелен */
+}
+
+.edit-btn:hover {
+    background-color: #388e3c;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background-color: #f44336; /* Червен */
+}
+
+.delete-btn:hover {
+    background-color: #c62828;
+    transform: scale(1.05);
+}
+
+.home-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.home-btn {
+    padding: 12px 24px;
+    background-color: #673ab7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.home-btn:hover {
+    background-color: #5e35b1;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    .budget-item {
+        padding: 10px; /* Намалено пространство на малки екрани */
+    }
+
+    .edit-btn, .delete-btn {
+        font-size: 12px; /* По-малък шрифт на малки екрани */
+    }
+
+    h1 {
+        font-size: 2em; /* По-малък размер на заглавието */
+    }
+}

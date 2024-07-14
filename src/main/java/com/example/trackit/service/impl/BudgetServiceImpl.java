@@ -1,7 +1,9 @@
 package com.example.trackit.service.impl;
 
 import com.example.trackit.model.dto.AddBudgetDto;
+import com.example.trackit.model.dto.ViewAllBudgetDto;
 import com.example.trackit.model.entity.Budget;
+import com.example.trackit.model.entity.User;
 import com.example.trackit.repository.BudgetRepository;
 import com.example.trackit.repository.CategoryRepository;
 import com.example.trackit.service.BudgetService;
@@ -21,6 +23,7 @@ public class BudgetServiceImpl implements BudgetService {
     private final BudgetRepository budgetRepository;
     private final UserHelperService userHelperService;
     private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
     @Override
     @Transactional
     public boolean addBudget(AddBudgetDto addBudgetDto) {
@@ -34,5 +37,15 @@ public class BudgetServiceImpl implements BudgetService {
         budget.setUser(userHelperService.getUser());
         budgetRepository.save(budget);
         return true;
+    }
+
+    @Override
+    public List<ViewAllBudgetDto> viewAll() {
+        User user = userHelperService.getUser();
+        return user.getBudgets().stream().map(this::map).toList();
+
+    }
+    private ViewAllBudgetDto map(Budget budget){
+        return modelMapper.map(budget, ViewAllBudgetDto.class);
     }
 }
