@@ -29,9 +29,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public boolean addNewCategory(AddCategoryDto addCategoryDto) {
+        if (!getAllForUser().stream().filter(c -> c.getName().equals(addCategoryDto.getName())).toList().isEmpty()){
+            return false;
+        }
         Category category = modelMapper.map(addCategoryDto, Category.class);
         category.setUser(userHelperService.getUser());
         categoryRepository.save(category);
-        return false;
+        return true;
     }
 }

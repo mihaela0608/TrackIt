@@ -17,6 +17,7 @@ public class AddBudgetDto {
     private String categoryName;
     @Positive(message = "Amount should be positive number")
     @NotNull
+    @Positive(message = "Amount should be positive")
     private BigDecimal amount;
 
 }
