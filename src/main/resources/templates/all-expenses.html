@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Expenses</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/navbar.css" rel="stylesheet">
+  <link href="css/all-expenses.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="content-wrapper">
+  <div class="expenses-container">
+    <h2 class="animate__animated animate__fadeInDown">Welcome to Your Amazing Expense Tracker</h2>
+    <p class="subtitle animate__animated animate__fadeInUp">Track your expenses effortlessly and take control of your finances.</p>
+    <div class="table-wrapper animate__animated animate__fadeIn">
+      <table>
+        <thead>
+        <tr>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Groceries</td>
+          <td>50.00</td>
+          <td>2023-07-01</td>
+          <td>Weekly grocery shopping</td>
+        </tr>
+        <tr>
+          <td>Utilities</td>
+          <td>75.50</td>
+          <td>2023-07-05</td>
+          <td>Monthly electricity bill</td>
+        </tr>
+        <tr>
+          <td>Transport</td>
+          <td>20.00</td>
+          <td>2023-07-08</td>
+          <td>Public transport card</td>
+        </tr>
+        <tr>
+          <td>Entertainment</td>
+          <td>100.00</td>
+          <td>2023-07-10</td>
+          <td>Concert tickets</td>
+        </tr>
+        <tr>
+          <td>Dining</td>
+          <td>45.00</td>
+          <td>2023-07-12</td>
+          <td>Dinner at a restaurant</td>
+        </tr>
+        <tr>
+          <td>Shopping</td>
+          <td>120.00</td>
+          <td>2023-07-15</td>
+          <td>Clothes and accessories</td>
+        </tr>
+        <tr>
+          <td>Healthcare</td>
+          <td>65.00</td>
+          <td>2023-07-18</td>
+          <td>Medical check-up</td>
+        </tr>
+        <tr>
+          <td>Subscriptions</td>
+          <td>15.00</td>
+          <td>2023-07-20</td>
+          <td>Streaming service subscription</td>
+        </tr>
+        <tr>
+          <td>Education</td>
+          <td>200.00</td>
+          <td>2023-07-22</td>
+          <td>Online course</td>
+        </tr>
+        <tr>
+          <td>Miscellaneous</td>
+          <td>30.00</td>
+          <td>2023-07-25</td>
+          <td>Miscellaneous expenses</td>
+        </tr>
+        <tr>
+          <td>Travel</td>
+          <td>300.00</td>
+          <td>2023-07-27</td>
+          <td>Flight tickets</td>
+        </tr>
+        <tr>
+          <td>Fitness</td>
+          <td>40.00</td>
+          <td>2023-07-28</td>
+          <td>Gym membership</td>
+        </tr>
+        <tr>
+          <td>Gift</td>
+          <td>60.00</td>
+          <td>2023-07-29</td>
+          <td>Birthday gift</td>
+        </tr>
+        <!-- Add more fake data if needed -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -60,19 +60,12 @@
             </div>
             <p class="motivational">Manage your categories for better spending.</p>
             <div class="scrollable">
-                <div class="item">
-                    <span>Food</span>
+                <div class="item" th:each="category : ${categories}">
+                    <span th:text="${category.name}">Food</span>
                 </div>
-                <div class="item">
-                    <span>Transport</span>
-                </div>
-                <div class="item">
-                    <span>Entertainment</span>
-                </div>
-                <div class="item">
-                    <span>Health</span>
-                </div>
-            </div>
+
+
+        </div>
             <div class="btn-container">
                 <button class="btn">Add New</button>
                 <button class="btn">View All</button>
@@ -92,7 +85,7 @@
 
             </div>
             <div class="btn-container">
-                <button class="btn">Add New</button>
+                <a th:href="@{/create-expense}" class="btn">Add New</a>
                 <a th:href="@{/all-expenses}" class="btn">View All</a>
             </div>
         </div>

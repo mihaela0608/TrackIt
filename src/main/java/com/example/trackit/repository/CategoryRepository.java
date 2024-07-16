@@ -1,6 +1,7 @@
 package com.example.trackit.repository;
 
 import com.example.trackit.model.entity.Category;
+import com.example.trackit.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     Optional<Category> findByName(String name);
+    List<Category> findByUser(User user);
 }

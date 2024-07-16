@@ -16,7 +16,7 @@
 
 <div class="container">
     <h1>Budget List</h1>
-    <button class="add-budget-btn">Add Budget</button>
+    <button th:href="@{/create-budget}" class="add-budget-btn">Add Budget</button>
     <div class="budget-list">
         <div class="budget-item" th:each="budget: ${budgets}">
             <h2 th:text="${budget.categoryName}">Groceries</h2>

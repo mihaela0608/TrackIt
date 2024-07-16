@@ -2,6 +2,7 @@ package com.example.trackit.service.impl;
 
 import com.example.trackit.model.dto.AddExpenseDto;
 import com.example.trackit.model.dto.ViewExpenseDto;
+import com.example.trackit.model.dto.ViewExpensesDetails;
 import com.example.trackit.model.entity.Budget;
 import com.example.trackit.model.entity.Expense;
 import com.example.trackit.model.entity.User;
@@ -67,6 +68,17 @@ public class ExpenseServiceImpl implements ExpenseService {
                     viewExpenseDto.setAmount(e.getAmount());
                     viewExpenseDto.setCategoryName(e.getCategory().getName());
                     return viewExpenseDto;
+                }).toList();
+    }
+
+    @Override
+    @Transactional
+    public List<ViewExpensesDetails> allDetails() {
+        return expenseRepository.findAll().stream().filter(e -> e.getUser().getId() == userHelperService.getUser().getId())
+                .map(e -> {
+                    ViewExpensesDetails expensesDetails = modelMapper.map(e, ViewExpensesDetails.class);
+                    expensesDetails.setCategoryName(e.getCategory().getName());
+                    return expensesDetails;
                 }).toList();
     }
 

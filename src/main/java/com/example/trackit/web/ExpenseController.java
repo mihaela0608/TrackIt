@@ -52,6 +52,7 @@ public class ExpenseController {
     }
     @GetMapping("/all-expenses")
     public String viewAll(Model model){
-        return "index";
+        model.addAttribute("expenses", expenseService.allDetails());
+        return "all-expenses";
     }
 }
