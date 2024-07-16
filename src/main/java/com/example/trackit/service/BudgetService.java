@@ -9,5 +9,5 @@ import java.util.List;
 public interface BudgetService {
     boolean addBudget(AddBudgetDto addBudgetDto);
     List<ViewAllBudgetDto> viewAll();
-    void editBudget(String categoryName, BigDecimal amount);
+    boolean editBudget(String categoryName, BigDecimal amount);
 }

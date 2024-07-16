@@ -1,0 +1,121 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(120deg, #f5f7fa, #e0f7fa);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.budget-form-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 20px;
+}
+
+.budget-form h2 {
+    margin-bottom: 20px;
+    color: #0d47a1;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.budget-form label {
+    display: block;
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.budget-form input {
+    width: calc(100% - 40px);
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.budget-form input:focus {
+    border-color: #1a237e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(26, 35, 126, 0.5);
+}
+
+.budget-form .input-icon {
+    position: relative;
+    width: 100%;
+}
+
+.budget-form .input-icon i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bbb;
+    font-size: 18px;
+}
+
+.budget-form button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #1a237e, #0d47a1);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.budget-form button:hover {
+    background-color: #0d47a1;
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .budget-form-container {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .budget-form h2 {
+        font-size: 22px;
+    }
+
+    .budget-form input,
+    .budget-form button {
+        font-size: 16px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .budget-form-container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .budget-form h2 {
+        font-size: 20px;
+    }
+
+    .budget-form input,
+    .budget-form button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

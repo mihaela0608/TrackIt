@@ -20,9 +20,9 @@ public class UserProgress extends BaseEntity{
     @ManyToOne
     private User user;
     @Column(name = "spent_amount")
-    private BigDecimal spentAmount;
+    private BigDecimal spentAmount = BigDecimal.ZERO;
     @Column(name = "saved_amount")
-    private BigDecimal savedAmount;
+    private BigDecimal savedAmount = BigDecimal.ZERO;
     private Month month;
 
 }

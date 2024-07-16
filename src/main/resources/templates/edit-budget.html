@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Budget</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="css/navbar.css" rel="stylesheet">
+    <link href="css/edit-budget.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="budget-form-container">
+    <form class="budget-form" th:action="@{'/edit-budget/' + ${category}}" method="post">
+        <h2>Edit Budget</h2>
+        <div class="input-icon">
+            <label for="amount">Amount</label>
+            <i class="fas fa-dollar-sign"></i>
+            <input type="number" id="amount" name="amount" required min="0" step="0.01">
+            <p th:if="${invalid}" >Amount should not be less than the spent money</p>
+        </div>
+        <button type="submit">Update Budget</button>
+    </form>
+</div>
+</body>
+</html>

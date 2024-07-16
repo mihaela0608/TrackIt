@@ -49,15 +49,22 @@ public class BudgetServiceImpl implements BudgetService {
     }
 
     @Override
-    public void editBudget(String categoryName, BigDecimal amount) {
+    @Transactional
+    public boolean editBudget(String categoryName, BigDecimal amount) {
         Budget budget = userHelperService.getUser().getBudgets().stream()
                 .filter(b -> b.getCategory().getName().equals(categoryName))
                 .findFirst().orElseThrow();
+        if (amount.compareTo(budget.getSpentAmount()) < 0) {
+            return false;
+        }
         budget.setAmount(amount);
         budgetRepository.save(budget);
+        return true;
     }
 
     private ViewAllBudgetDto map(Budget budget){
-        return modelMapper.map(budget, ViewAllBudgetDto.class);
+        ViewAllBudgetDto budgetDto = modelMapper.map(budget, ViewAllBudgetDto.class);
+        budgetDto.setSpentAmount(budget.getSpentAmount());
+        return budgetDto;
     }
 }

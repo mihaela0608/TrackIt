@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @Table(name = "expenses")
 @Getter
 @Setter
-@NoArgsConstructor
 public class Expense extends BaseEntity{
 
     @ManyToOne(optional = false)
@@ -28,5 +27,7 @@ public class Expense extends BaseEntity{
     private LocalDate date;
     private String description;
 
-
+    public Expense() {
+        this.date = LocalDate.now();
+    }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,13 +20,18 @@
     <div class="budget-list">
         <div class="budget-item" th:each="budget: ${budgets}">
             <h2 th:text="${budget.categoryName}">Groceries</h2>
-            <div th:text="${budget.amount}" class="amount">100.00 BGN</div>
+            <div class="amount">
+                <span>Total Amount:</span>
+                <span th:text="${budget.amount}">100.00 BGN</span>
+            </div>
+            <div class="amount">
+                <span>Spent Amount:</span>
+                <span th:text="${budget.spentAmount}">50.00 BGN</span>
+            </div>
             <div class="btn-container">
-                <button th:href="@{/edit-budget/{category}(category = ${budget.getCategoryName()})}" class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
+                <a th:href="@{/edit-budget/{category}(category=${budget.categoryName})}" class="edit-btn">Edit</a>
             </div>
         </div>
-
     </div>
     <div class="home-button-container">
         <a th:href="@{/home}" class="home-btn">Home Page</a>

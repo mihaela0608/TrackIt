@@ -116,23 +116,6 @@ h1 {
     transform: scale(1.05);
 }
 
-.btn-small {
-    background-color: #1a237e;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 16px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.btn-small:hover {
-    background-color: #0d47a1;
-    transform: scale(1.05);
-}
 
 .item {
     display: flex;

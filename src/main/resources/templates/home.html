@@ -62,19 +62,15 @@
             <div class="scrollable">
                 <div class="item">
                     <span>Food</span>
-                    <button class="btn-small">Details</button>
                 </div>
                 <div class="item">
                     <span>Transport</span>
-                    <button class="btn-small">Details</button>
                 </div>
                 <div class="item">
                     <span>Entertainment</span>
-                    <button class="btn-small">Details</button>
                 </div>
                 <div class="item">
                     <span>Health</span>
-                    <button class="btn-small">Details</button>
                 </div>
             </div>
             <div class="btn-container">
@@ -90,26 +86,14 @@
             </div>
             <p class="motivational">Keep track of your expenses to stay on budget.</p>
             <div class="scrollable">
-                <div class="item">
-                    <span>Dining Out: $120</span>
-                    <button class="btn-small">Details</button>
+                <div class="item" th:each="expense : ${expenses}">
+                    <span><span th:text="${expense.categoryName}"></span>: <span th:field="${expense.amount}">$120</span></span>
                 </div>
-                <div class="item">
-                    <span>Gym Membership: $60</span>
-                    <button class="btn-small">Details</button>
-                </div>
-                <div class="item">
-                    <span>Subscriptions: $40</span>
-                    <button class="btn-small">Details</button>
-                </div>
-                <div class="item">
-                    <span>Gifts: $100</span>
-                    <button class="btn-small">Details</button>
-                </div>
+
             </div>
             <div class="btn-container">
                 <button class="btn">Add New</button>
-                <button class="btn">View All</button>
+                <a th:href="@{/all-expenses}" class="btn">View All</a>
             </div>
         </div>
     </div>

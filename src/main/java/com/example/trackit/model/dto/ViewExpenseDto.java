@@ -9,10 +9,8 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ViewAllBudgetDto {
-
+public class ViewExpenseDto {
     private String categoryName;
-    private BigDecimal amount = BigDecimal.ZERO;
-    private BigDecimal spentAmount = BigDecimal.ZERO;
+    private BigDecimal amount;
 
 }
