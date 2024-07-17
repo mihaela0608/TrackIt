@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/expenses")
 public class ExpenseController {
     private final BudgetRepository budgetRepository;
     private final ExpenseService expenseService;
@@ -26,7 +28,7 @@ public class ExpenseController {
         this.userHelperService = userHelperService;
     }
 
-    @GetMapping("/create-expense")
+    @GetMapping("/create")
     @Transactional
     public String viewExpenseAdding(Model model){
         if (!model.containsAttribute("expenseData")){
@@ -37,20 +39,20 @@ public class ExpenseController {
                 .map(Budget::getCategory));
         return "create-expense";
     }
-    @PostMapping("/create-expense")
+    @PostMapping("/create")
     public String createExpense(@Valid AddExpenseDto expenseData, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if (bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("expenseData", expenseData);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.expenseData", bindingResult);
-            return "redirect:/create-expense";
+            return "redirect:/expenses/create";
         }
         if (!expenseService.addExpense(expenseData)){
             redirectAttributes.addFlashAttribute("notValid", true);
-            return "redirect:/create-expense";
+            return "redirect:/expenses/create";
         }
         return "redirect:/home";
     }
-    @GetMapping("/all-expenses")
+    @GetMapping("/all")
     public String viewAll(Model model){
         model.addAttribute("expenses", expenseService.allDetails());
         return "all-expenses";

@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -18,25 +20,32 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/create-category")
+    @GetMapping("/create")
     public String viewCreateCategory(Model model){
         if (!model.containsAttribute("categoryData")){
             model.addAttribute("categoryData", new AddCategoryDto());
         }
         return "create-category";
     }
-    @PostMapping("/create-category")
+    @PostMapping("/create")
     public String createCategory(@Valid AddCategoryDto categoryData, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if (bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("categoryData", categoryData);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.categoryData", bindingResult);
-            return "redirect:/create-category";
+            return "redirect:/categories/create";
         }
         boolean added = categoryService.addNewCategory(categoryData);
         if (!added){
             redirectAttributes.addFlashAttribute("occupied", true);
-            return "redirect:/create-category";
+            return "redirect:/categories/create";
         }
         return "redirect:/home";
     }
+
+    @GetMapping("/all")
+    public String viewAll(Model model){
+        model.addAttribute("categories", categoryService.getAllDetails());
+        return "all-categories";
+    }
+
 }

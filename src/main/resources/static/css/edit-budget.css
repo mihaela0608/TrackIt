@@ -3,11 +3,13 @@ body {
     background: linear-gradient(120deg, #f5f7fa, #e0f7fa);
     margin: 0;
     padding: 0;
+    color: #333;
+}
+.content-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: #333;
 }
 
 .budget-form-container {

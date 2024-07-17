@@ -34,8 +34,8 @@
             </div>
             <p class="motivational">Set your budget and track your spending to save more.</p>
             <div class="btn-container">
-                <a th:href="@{/create-budget}" class="btn">Add New</a>
-                <a th:href="@{/all-budgets}" class="btn">View All</a>
+                <a th:href="@{/budgets/create}" class="btn">Add New</a>
+                <a th:href="@{/budgets/all}" class="btn">View All</a>
             </div>
         </div>
 
@@ -67,8 +67,8 @@
 
         </div>
             <div class="btn-container">
-                <button class="btn">Add New</button>
-                <button class="btn">View All</button>
+                <a th:href="@{/categories/create}" class="btn">Add New</a>
+                <a th:href="@{/categories/all}" class="btn">View All</a>
             </div>
         </div>
 
@@ -85,8 +85,8 @@
 
             </div>
             <div class="btn-container">
-                <a th:href="@{/create-expense}" class="btn">Add New</a>
-                <a th:href="@{/all-expenses}" class="btn">View All</a>
+                <a th:href="@{/expenses/create}" class="btn">Add New</a>
+                <a th:href="@{/expenses/all}" class="btn">View All</a>
             </div>
         </div>
     </div>

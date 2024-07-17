@@ -1,6 +1,7 @@
 package com.example.trackit.service.impl;
 
 import com.example.trackit.model.dto.AddCategoryDto;
+import com.example.trackit.model.dto.CategoryDetailsDto;
 import com.example.trackit.model.entity.Category;
 import com.example.trackit.repository.CategoryRepository;
 import com.example.trackit.service.CategoryService;
@@ -36,5 +37,19 @@ public class CategoryServiceImpl implements CategoryService {
         category.setUser(userHelperService.getUser());
         categoryRepository.save(category);
         return true;
+    }
+
+    @Override
+    public List<CategoryDetailsDto> getAllDetails() {
+        return getAllForUser().stream().map(CategoryServiceImpl::getCategoryDetailsDto
+        ).toList();
+    }
+
+    private static CategoryDetailsDto getCategoryDetailsDto(Category c) {
+        CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto();
+        categoryDetailsDto.setCategoryName(c.getName());
+        categoryDetailsDto.setDescription(c.getDescription());
+        categoryDetailsDto.setUserId(c.getUser().getId());
+        return categoryDetailsDto;
     }
 }

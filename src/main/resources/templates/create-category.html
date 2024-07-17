@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Category</title>
-    <link href="css/navbar.css" rel="stylesheet">
-    <link href="css/create-category.css" rel="stylesheet">
+    <link href="/css/navbar.css" rel="stylesheet">
+    <link href="/css/create-category.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -13,7 +13,7 @@
 <div class="content-wrapper">
 <div class="category-form-container">
     <h2>Add Category</h2>
-    <form th:action="@{/create-category}" th:method="post" th:object="${categoryData}">
+    <form th:action="@{/categories/create}" th:method="post" th:object="${categoryData}">
         <p th:if="${occupied}" >Category with these name already exists</p>
 
         <div class="form-group">

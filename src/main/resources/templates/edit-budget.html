@@ -6,14 +6,14 @@
     <title>Edit Budget</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="css/navbar.css" rel="stylesheet">
-    <link href="css/edit-budget.css" rel="stylesheet">
+    <link href="/css/navbar.css" rel="stylesheet">
+    <link href="/css/edit-budget.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-
+<div class="content-wrapper">
 <div class="budget-form-container">
-    <form class="budget-form" th:action="@{'/edit-budget/' + ${category}}" method="post">
+    <form class="budget-form" th:action="@{'budgets/edit/' + ${category}}" method="post">
         <h2>Edit Budget</h2>
         <div class="input-icon">
             <label for="amount">Amount</label>
@@ -23,6 +23,7 @@
         </div>
         <button type="submit">Update Budget</button>
     </form>
+</div>
 </div>
 </body>
 </html>
