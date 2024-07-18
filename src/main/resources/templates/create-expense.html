@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Expense</title>
+    <title th:text="#{addExpense_title}">Add Expense</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
@@ -16,35 +16,34 @@
 
 <div class="expense-form-container">
     <div class="expense-form">
-        <h2>Add New Expense</h2>
+        <h2 th:text="#{addExpense_heading}">Add New Expense</h2>
         <form th:action="@{/expenses/create}" method="post" th:object="${expenseData}">
-            <p th:if="${notValid}">Category doesn't exist, or you don't have enough money</p>
+            <p th:if="${notValid}" th:text="#{addExpense_error}">Category doesn't exist, or you don't have enough money</p>
 
             <div class="input-icon">
-                <label for="categoryName">Category</label>
+                <label for="categoryName" th:text="#{addExpense_category}">Category</label>
                 <i class="fas fa-list"></i>
                 <select th:field="*{categoryName}" id="categoryName" name="categoryName" required>
-                    <option value="" disabled selected>Select a category</option>
+                    <option value="" disabled selected th:text="#{addExpense_select}">Select a category</option>
                     <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
                 </select>
                 <p th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}"></p>
-
             </div>
 
             <div class="input-icon">
-                <label for="amount">Amount</label>
+                <label for="amount" th:text="#{addExpense_amount}">Amount</label>
                 <i class="fas fa-dollar-sign"></i>
                 <input th:field="*{amount}" type="number" id="amount" name="amount" required min="0" step="0.01">
                 <p th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></p>
             </div>
 
             <div class="input-icon">
-                <label for="description">Description</label>
+                <label for="description" th:text="#{addExpense_description}">Description</label>
                 <i class="fas fa-align-left"></i>
                 <input th:field="*{description}" type="text" id="description" name="description">
             </div>
 
-            <button type="submit">Add Expense</button>
+            <button type="submit" th:text="#{addExpense_button}">Add Expense</button>
         </form>
     </div>
 </div>

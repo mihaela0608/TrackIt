@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
+    <title th:text="#{error_title}">Error</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="/css/error.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-    <h1>Oops! Something went wrong</h1>
-    <p class="error-description">We can't find the page you're looking for.</p>
+    <h1 th:text="#{error_heading}">Oops! Something went wrong</h1>
+    <p class="error-description" th:text="#{error_description}">We can't find the page you're looking for.</p>
     <img src="https://via.placeholder.com/400x300?text=Error" alt="Error" class="error-image">
     <div class="btn-container">
-        <a href="/" class="btn">Go to Homepage</a>
+        <a href="/" class="btn" th:text="#{error_button_text}">Go to Homepage</a>
     </div>
 </div>
 </body>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Budget</title>
+    <title th:text="#{newBudget_title}">New Budget</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
@@ -18,12 +18,12 @@
 
 <div class="budget-form-container">
     <div class="budget-form">
-        <h2>Create New Budget</h2>
-        <form th:action="@{/create-budget}" method="post" th:object="${budgetData}">
-            <p th:if="${exists}" >Budget for this category already exists</p>
+        <h2 th:text="#{newBudget_heading}">Create New Budget</h2>
+        <form th:action="@{/budgets/create}" method="post" th:object="${budgetData}">
+            <p th:if="${exists}" th:text="#{newBudget_exists}">Budget for this category already exists</p>
 
             <div class="input-icon">
-                <label for="categoryName">Category</label>
+                <label for="categoryName" th:text="#{newBudget_categoryLabel}">Category</label>
                 <i class="fas fa-list"></i>
                 <select th:field="*{categoryName}" id="categoryName" name="categoryName" required>
                     <option value="" disabled selected>Select a category</option>
@@ -33,14 +33,13 @@
             </div>
 
             <div class="input-icon">
-                <label for="amount">Amount</label>
+                <label for="amount" th:text="#{newBudget_amountLabel}">Amount</label>
                 <i class="fas fa-dollar-sign"></i>
                 <input th:field="*{amount}" type="number" id="amount" name="amount" required min="0" step="0.01">
                 <p th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></p>
             </div>
 
-
-            <button type="submit">Create Budget</button>
+            <button type="submit" th:text="#{newBudget_createButton}">Create Budget</button>
         </form>
     </div>
 </div>

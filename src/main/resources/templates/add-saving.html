@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Saving Goal</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/new-saving.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="/css/navbar.css" rel="stylesheet">
+    <link href="/css/add-saving.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="content-wrapper">
+<div class="saving-form">
+    <h2>Create New Saving Goal</h2>
+    <form action="/savings/create" method="post">
+        <div class="input-icon">
+            <label for="goal">Saving Goal</label>
+            <i class="fas fa-bullseye"></i>
+            <input type="text" id="goal" name="goal" required>
+        </div>
+        <div class="input-icon">
+            <label for="targetAmount">Target Amount</label>
+            <i class="fas fa-money-bill-wave"></i>
+            <input type="number" id="targetAmount" name="targetAmount" required min="0" step="0.01">
+        </div>
+        <div class="input-icon">
+            <label for="description">Description</label>
+            <i class="fas fa-align-left"></i>
+            <input type="text" id="description" name="description">
+        </div>
+        <button type="submit">Create Saving Goal</button>
+    </form>
+</div>
+</div>
+</body>
+</html>

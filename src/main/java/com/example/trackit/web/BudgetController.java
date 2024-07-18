@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
@@ -61,15 +58,14 @@ public class BudgetController {
         return "edit-budget";
     }
     @PostMapping("/edit/{category}")
-    public String editBudget(@PathVariable String category, BigDecimal amount, RedirectAttributes redirectAttributes){
+    public String editBudget(@PathVariable String category, @RequestParam BigDecimal amount, RedirectAttributes redirectAttributes){
         boolean edited = budgetService.editBudget(category, amount);
         if (!edited){
             redirectAttributes.addFlashAttribute("invalid", true);
             return "redirect:/budgets/edit/" + category;
         }
 
-
-        return "redirect:/all";
+        return "redirect:/budgets/all";
     }
 
 }
