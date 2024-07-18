@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,38 +16,38 @@
 
 <div class="registration-flex">
     <div class="registration-form">
-        <h2>Register</h2>
+        <h2 th:text="#{register_title}">Register</h2>
         <form th:action="@{/register}" th:method="post" th:object="${userData}">
             <div class="input-icon">
-                <label for="username">Username</label>
+                <label for="username" th:text="#{input_username}">Username</label>
                 <i class="fas fa-user"></i>
                 <input th:field="*{username}" type="text" id="username" name="username" required>
                 <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></div>
             </div>
 
             <div class="input-icon">
-                <label for="email">Email Address</label>
+                <label for="email" th:text="#{input_email}">Email Address</label>
                 <i class="fas fa-envelope"></i>
                 <input th:field="*{email}" type="email" id="email" name="email" required>
                 <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
-                <div th:if="${occupied}" class="error">Email is already occupied</div>
+                <div th:if="${occupied}" class="error" th:text="#{register_email_occupied}">Email is already occupied</div>
             </div>
 
             <div class="input-icon">
-                <label for="password">Password</label>
+                <label for="password" th:text="#{input_password}">Password</label>
                 <i class="fas fa-lock"></i>
                 <input th:field="*{password}" type="password" id="password" name="password" required>
                 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
             </div>
 
             <div class="input-icon">
-                <label for="confirm-password">Confirm Password</label>
+                <label for="confirm-password" th:text="#{input_confirm_password}">Confirm Password</label>
                 <i class="fas fa-lock"></i>
                 <input th:field="*{confirmPassword}" type="password" id="confirm-password" name="confirm-password" required>
                 <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></div>
             </div>
 
-            <button type="submit">Register</button>
+            <button type="submit" th:text="#{register_submit}">Register</button>
         </form>
     </div>
 </div>

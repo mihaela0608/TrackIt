@@ -17,72 +17,70 @@
 <section class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <h1>Welcome to TrackIt</h1>
-        <p>Manage your personal finances with ease and efficiency.</p>
-        <a th:href="@{/register}" class="cta-button">Get Started</a>
+        <h1 th:text="#{index_welcome}">Welcome to TrackIt</h1>
+        <p th:text="#{index_short_info}">Manage your personal finances with ease and efficiency.</p>
+        <a th:href="@{/register}" class="cta-button" th:text="#{cta_get_started}">Get Started</a>
     </div>
 </section>
 
 <section class="features" id="features">
-    <h2>Key Features</h2>
+    <h2 th:text="#{features_title}">Key Features</h2>
     <div class="feature-grid">
         <div class="feature">
             <i class="fas fa-chart-line"></i>
-            <h3>Track Expenses</h3>
-            <p>Keep track of your spending and manage your budget effortlessly.</p>
+            <h3 th:text="#{feature_track_expenses}">Track Expenses</h3>
+            <p th:text="#{feature_track_expenses_desc}">Keep track of your spending and manage your budget effortlessly.</p>
         </div>
         <div class="feature">
             <i class="fas fa-piggy-bank"></i>
-            <h3>Save Money</h3>
-            <p>Set savings goals and achieve them with our smart tools.</p>
+            <h3 th:text="#{feature_save_money}">Save Money</h3>
+            <p th:text="#{feature_save_money_desc}">Set savings goals and achieve them with our smart tools.</p>
         </div>
         <div class="feature">
             <i class="fas fa-file-invoice-dollar"></i>
-            <h3>Generate Reports</h3>
-            <p>Create detailed financial reports to understand your financial health.</p>
+            <h3 th:text="#{feature_generate_reports}">Generate Reports</h3>
+            <p th:text="#{feature_generate_reports_desc}">Create detailed financial reports to understand your financial health.</p>
         </div>
     </div>
 </section>
 
 <section class="cta-section">
-    <h2>Ready to take control of your finances?</h2>
-    <p>Join TrackIt today and start managing your personal finances with ease.</p>
-    <a th:href="@{/register}" class="cta-button">Sign Up Now</a>
+    <h2 th:text="#{cta_section_title}">Ready to take control of your finances?</h2>
+    <p th:text="#{cta_section_desc}">Join TrackIt today and start managing your personal finances with ease.</p>
+    <a th:href="@{/register}" class="cta-button" th:text="#{cta_sign_up_now}">Sign Up Now</a>
 </section>
 
 <section class="more-info" id="about">
-    <h2>About Us</h2>
+    <h2 th:text="#{about_us_title}">About Us</h2>
     <div class="info-grid">
         <div class="info-card">
-            <h3>Our Mission</h3>
-            <p>To provide the best personal finance management tool to help individuals achieve their financial goals.</p>
+            <h3 th:text="#{about_us_mission}">Our Mission</h3>
+            <p th:text="#{about_us_mission_desc}">To provide the best personal finance management tool to help individuals achieve their financial goals.</p>
         </div>
         <div class="info-card">
-            <h3>Our Vision</h3>
-            <p>Empowering people to take control of their financial future with ease and confidence.</p>
+            <h3 th:text="#{about_us_vision}">Our Vision</h3>
+            <p th:text="#{about_us_vision_desc}">Empowering people to take control of their financial future with ease and confidence.</p>
         </div>
     </div>
 </section>
 
 <section class="testimonials">
-    <h2>Wisdom from Financial Gurus</h2>
+    <h2 th:text="#{testimonials_title}">Wisdom from Financial Gurus</h2>
     <div class="testimonial-grid">
         <div class="testimonial">
-            <p>“Beware of little expenses. A small leak will sink a great ship.”</p>
-            <h3>Benjamin Franklin</h3>
+            <p th:text="#{testimonial_1}">“Beware of little expenses. A small leak will sink a great ship.”</p>
+            <h3 th:text="#{testimonial_1_author}">Benjamin Franklin</h3>
         </div>
         <div class="testimonial">
-            <p>“Personal finance is only 20% head knowledge. It's 80% behavior!”</p>
-            <h3>Dave Ramsey</h3>
+            <p th:text="#{testimonial_2}">“Personal finance is only 20% head knowledge. It's 80% behavior!”</p>
+            <h3 th:text="#{testimonial_2_author}">Dave Ramsey</h3>
         </div>
         <div class="testimonial">
-            <p>"Money, like emotions, is something you must control to keep your life on the right track.”</p>
-            <h3>Natasha Munson</h3>
+            <p th:text="#{testimonial_3}">"Money, like emotions, is something you must control to keep your life on the right track.”</p>
+            <h3 th:text="#{testimonial_3_author}">Natasha Munson</h3>
         </div>
     </div>
 </section>
-
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

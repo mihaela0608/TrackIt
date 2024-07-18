@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinanceTracker Login</title>
+    <title th:text="#{login_title}">FinanceTracker Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
@@ -18,22 +18,22 @@
 
 <div class="login-flex">
     <div class="login-form">
-        <h2>Login</h2>
+        <h2 th:text="#{login_title}">Login</h2>
         <form th:action="@{/login}" th:method="post">
-            <div th:if="${invalid}" class="error">Invalid email or password</div>
+            <div th:if="${invalid}" class="error" th:text="#{login_invalid}">Invalid email or password</div>
             <div class="input-icon">
-                <label for="email">Email</label>
+                <label for="email" th:text="#{input_email}">Email</label>
                 <i class="fas fa-user"></i>
                 <input type="text" id="email" name="email" required>
             </div>
 
             <div class="input-icon">
-                <label for="password">Password</label>
+                <label for="password" th:text="#{input_password}">Password</label>
                 <i class="fas fa-lock"></i>
                 <input type="password" id="password" name="password" required>
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit" th:text="#{login_button}">Login</button>
         </form>
     </div>
 </div>

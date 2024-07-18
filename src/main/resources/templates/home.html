@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,14 +15,14 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="container">
-    <h1>Track Your Financial Progress Effectively</h1>
+    <h1 th:text="#{home_title}">Track Your Financial Progress Effectively</h1>
 
     <div class="center-section">
-        <p class="profile-motivational motivational">
+        <p class="profile-motivational motivational" th:text="#{profile_motivational}">
             Curious about how far you've come? Check your profile now to discover your financial progress and see how each step gets you closer to your goals!
         </p>
         <div class="btn-container profile-btn">
-            <button class="btn">Go to Profile</button>
+            <a th:href="@{/profile}" class="btn" th:text="#{go_to_profile}">Go to Profile</a>
         </div>
     </div>
 
@@ -30,24 +30,28 @@
         <div class="card">
             <div class="card-header">
                 <span class="icon">💰</span>
-                <h2>Budget</h2>
+                <h2 th:text="#{budget_title}">Budget</h2>
             </div>
-            <p class="motivational">Set your budget and track your spending to save more.</p>
+            <p class="motivational" th:text="#{budget_motivational}">
+                Set your budget and track your spending to save more.
+            </p>
             <div class="btn-container">
-                <a th:href="@{/budgets/create}" class="btn">Add New</a>
-                <a th:href="@{/budgets/all}" class="btn">View All</a>
+                <a th:href="@{/budgets/create}" class="btn" th:text="#{add_new}">Add New</a>
+                <a th:href="@{/budgets/all}" class="btn" th:text="#{view_all}">View All</a>
             </div>
         </div>
 
         <div class="card">
             <div class="card-header">
                 <span class="icon">💵</span>
-                <h2>Savings</h2>
+                <h2 th:text="#{savings_title}">Savings</h2>
             </div>
-            <p class="motivational">Save today for a better tomorrow.</p>
+            <p class="motivational" th:text="#{savings_motivational}">
+                Save today for a better tomorrow.
+            </p>
             <div class="btn-container">
-                <button class="btn">Add New</button>
-                <button class="btn">View All</button>
+                <a th:href="@{/savings/create}" class="btn" th:text="#{add_new}">Add New</a>
+                <a th:href="@{/savings/all}" class="btn" th:text="#{view_all}">View All</a>
             </div>
         </div>
     </div>
@@ -56,37 +60,38 @@
         <div class="card">
             <div class="card-header">
                 <span class="icon">📊</span>
-                <h2>Categories</h2>
+                <h2 th:text="#{categories_title}">Categories</h2>
             </div>
-            <p class="motivational">Manage your categories for better spending.</p>
+            <p class="motivational" th:text="#{categories_motivational}">
+                Manage your categories for better spending.
+            </p>
             <div class="scrollable">
                 <div class="item" th:each="category : ${categories}">
                     <span th:text="${category.name}">Food</span>
                 </div>
-
-
-        </div>
+            </div>
             <div class="btn-container">
-                <a th:href="@{/categories/create}" class="btn">Add New</a>
-                <a th:href="@{/categories/all}" class="btn">View All</a>
+                <a th:href="@{/categories/create}" class="btn" th:text="#{add_new}">Add New</a>
+                <a th:href="@{/categories/all}" class="btn" th:text="#{view_all}">View All</a>
             </div>
         </div>
 
         <div class="card">
             <div class="card-header">
                 <span class="icon">💸</span>
-                <h2>Expenses</h2>
+                <h2 th:text="#{expenses_title}">Expenses</h2>
             </div>
-            <p class="motivational">Keep track of your expenses to stay on budget.</p>
+            <p class="motivational" th:text="#{expenses_motivational}">
+                Keep track of your expenses to stay on budget.
+            </p>
             <div class="scrollable">
                 <div class="item" th:each="expense : ${expenses}">
                     <span><span th:text="${expense.categoryName}"></span>: <span th:field="${expense.amount}">$120</span></span>
                 </div>
-
             </div>
             <div class="btn-container">
-                <a th:href="@{/expenses/create}" class="btn">Add New</a>
-                <a th:href="@{/expenses/all}" class="btn">View All</a>
+                <a th:href="@{/expenses/create}" class="btn" th:text="#{add_new}">Add New</a>
+                <a th:href="@{/expenses/all}" class="btn" th:text="#{view_all}">View All</a>
             </div>
         </div>
     </div>

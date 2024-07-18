@@ -83,3 +83,33 @@ ul li a:hover {
 .logout-button:hover {
     color: #42a5f5;
 }
+
+.language-selector {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.language-selector label {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+.language-selector select {
+    background-color: #1e3a5f;
+    color: white;
+    border: 1px solid #fff;
+    padding: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.language-selector select:focus {
+    outline: none;
+    border-color: #42a5f5;
+}
+
+.language-selector option {
+    background-color: #1e3a5f;
+    color: white;
+}
