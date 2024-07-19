@@ -20,7 +20,7 @@ public class Saving extends BaseEntity{
     private User user;
 
     @Column(nullable = false)
-    private String goal;//Цел на спестяването (напр. "заем за кола", "почивка")
+    private String goal;
     @Column(name = "saved_amount")
     private BigDecimal savedAmount;
     @Column(name = "target_amount", nullable = false)

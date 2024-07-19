@@ -19,21 +19,24 @@
 <div class="content-wrapper">
     <div class="saving-form">
         <h2 th:text="#{newSavingGoal_heading}">Create New Saving Goal</h2>
-        <form action="/savings/create" method="post">
+        <form th:action="@{/savings/create}" th:method="post" th:object="${savingData}">
             <div class="input-icon">
                 <label for="goal" th:text="#{newSavingGoal_goalLabel}">Saving Goal</label>
                 <i class="fas fa-bullseye"></i>
-                <input type="text" id="goal" name="goal" required>
+                <input th:field="*{goal}" type="text" id="goal" name="goal" required>
+                <p th:if="${#fields.hasErrors('goal')}" th:errors="*{goal}"></p>
             </div>
             <div class="input-icon">
                 <label for="targetAmount" th:text="#{newSavingGoal_targetAmountLabel}">Target Amount</label>
                 <i class="fas fa-money-bill-wave"></i>
-                <input type="number" id="targetAmount" name="targetAmount" required min="0" step="0.01">
+                <input th:field="*{targetAmount}" type="number" id="targetAmount" name="targetAmount" required min="0" step="0.01">
+                <p th:if="${#fields.hasErrors('targetAmount')}" th:errors="*{targetAmount}"></p>
             </div>
             <div class="input-icon">
                 <label for="description" th:text="#{newSavingGoal_descriptionLabel}">Description</label>
                 <i class="fas fa-align-left"></i>
-                <input type="text" id="description" name="description">
+                <input th:field="*{description}" type="text" id="description" name="description">
+                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
             </div>
             <button type="submit" th:text="#{newSavingGoal_submitButton}">Create Saving Goal</button>
         </form>
