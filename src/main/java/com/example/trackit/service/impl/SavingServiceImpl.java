@@ -3,7 +3,9 @@ package com.example.trackit.service.impl;
 import com.example.trackit.model.dto.AddFromBudget;
 import com.example.trackit.model.dto.AddSavingDto;
 import com.example.trackit.model.dto.SavingDetails;
+import com.example.trackit.model.entity.Budget;
 import com.example.trackit.model.entity.Saving;
+import com.example.trackit.repository.BudgetRepository;
 import com.example.trackit.repository.SavingRepository;
 import com.example.trackit.service.SavingService;
 import com.example.trackit.service.session.UserHelperService;
@@ -20,11 +22,13 @@ public class SavingServiceImpl implements SavingService {
     private final SavingRepository savingRepository;
     private final ModelMapper modelMapper;
     private final UserHelperService userHelperService;
+    private final BudgetRepository budgetRepository;
 
-    public SavingServiceImpl(SavingRepository savingRepository, ModelMapper modelMapper, UserHelperService userHelperService) {
+    public SavingServiceImpl(SavingRepository savingRepository, ModelMapper modelMapper, UserHelperService userHelperService, BudgetRepository budgetRepository) {
         this.savingRepository = savingRepository;
         this.modelMapper = modelMapper;
         this.userHelperService = userHelperService;
+        this.budgetRepository = budgetRepository;
     }
 
     @Override
@@ -61,6 +65,27 @@ public class SavingServiceImpl implements SavingService {
         }
         Saving saving = savingRepository.findById(id).get();
         saving.setSavedAmount(saving.getSavedAmount().add(amount));
+        savingRepository.save(saving);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean addFromBudget(long id, AddFromBudget fromBudget) {
+        Optional<Budget> budget = userHelperService.getUser().getBudgets().stream()
+                .filter(b -> b.getCategory().getName().equals(fromBudget.getCategoryName()))
+                .findFirst();
+        if (budget.isEmpty()){
+            return false;
+        }
+        BigDecimal amount = budget.get().getAmount().subtract(budget.get().getSpentAmount());
+        if (amount.compareTo(fromBudget.getNewAmount()) < 0){
+            return false;
+        }
+        budget.get().setSpentAmount(budget.get().getSpentAmount().add(fromBudget.getNewAmount()));
+        budgetRepository.save(budget.get());
+        Saving saving = savingRepository.findById(id).get();
+        saving.setSavedAmount(saving.getSavedAmount().add(fromBudget.getNewAmount()));
         savingRepository.save(saving);
         return true;
     }

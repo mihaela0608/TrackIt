@@ -1,5 +1,6 @@
 package com.example.trackit.web;
 
+import com.example.trackit.model.dto.AddFromBudget;
 import com.example.trackit.model.dto.AddSavingDto;
 import com.example.trackit.service.BudgetService;
 import com.example.trackit.service.SavingService;
@@ -71,15 +72,28 @@ public class SavingsController {
         if (!savingService.isSavingIdValidForUser(id)){
             throw new NullPointerException();
         }
+        if (!model.containsAttribute("fromBudget")){
+            model.addAttribute("fromBudget", new AddFromBudget());
+        }
         model.addAttribute("budgets", budgetService.viewAll());
         model.addAttribute("id", id);
 
         return "add-from-budget";
     }
     @PostMapping("/add-amount/budget/{id}")
-    public String addFromBudget(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes){
+    public String addFromBudget(@PathVariable Long id, @Valid AddFromBudget fromBudget,BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if (!savingService.isSavingIdValidForUser(id)){
             throw new NullPointerException();
+        }
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("fromBudget", fromBudget);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.fromBudget", bindingResult);
+            return "redirect:/savings/add-amount/budget/" + id;
+        }
+        boolean added = savingService.addFromBudget(id, fromBudget);
+        if (!added){
+            redirectAttributes.addFlashAttribute("invalid", true);
+            return "redirect:/savings/add-amount/budget/" + id;
         }
         return "redirect:/savings/all";
     }
@@ -93,7 +107,7 @@ public class SavingsController {
         return "add-separate";
     }
     @PostMapping("/add-amount/separate/{id}")
-    public String addSeparate(@PathVariable Long id, @RequestParam BigDecimal amount, Model model, RedirectAttributes redirectAttributes){
+    public String addSeparate(@PathVariable Long id, @RequestParam BigDecimal amount, RedirectAttributes redirectAttributes){
         if (!savingService.isSavingIdValidForUser(id)){
             throw new NullPointerException();
         }
