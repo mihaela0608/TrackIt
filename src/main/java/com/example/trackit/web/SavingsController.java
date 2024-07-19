@@ -1,6 +1,7 @@
 package com.example.trackit.web;
 
 import com.example.trackit.model.dto.AddSavingDto;
+import com.example.trackit.service.BudgetService;
 import com.example.trackit.service.SavingService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -9,13 +10,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("/savings")
 public class SavingsController {
     private final SavingService savingService;
+    private final BudgetService budgetService;
 
-    public SavingsController(SavingService savingService) {
+    public SavingsController(SavingService savingService, BudgetService budgetService) {
         this.savingService = savingService;
+        this.budgetService = budgetService;
     }
 
 
@@ -62,15 +67,42 @@ public class SavingsController {
         return "redirect:/home";
     }
     @GetMapping("/add-amount/budget/{id}")
-    public String viewFromBudget(@PathVariable Long id){
+    public String viewFromBudget(@PathVariable Long id, Model model){
         if (!savingService.isSavingIdValidForUser(id)){
             throw new NullPointerException();
         }
+        model.addAttribute("budgets", budgetService.viewAll());
+        model.addAttribute("id", id);
+
         return "add-from-budget";
     }
+    @PostMapping("/add-amount/budget/{id}")
+    public String addFromBudget(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes){
+        if (!savingService.isSavingIdValidForUser(id)){
+            throw new NullPointerException();
+        }
+        return "redirect:/savings/all";
+    }
+
     @GetMapping("/add-amount/separate/{id}")
-    public String viewSeparate(@PathVariable Long id){
+    public String viewSeparate(@PathVariable Long id, Model model){
+        if (!savingService.isSavingIdValidForUser(id)){
+            throw new NullPointerException();
+        }
+        model.addAttribute("id", id);
         return "add-separate";
+    }
+    @PostMapping("/add-amount/separate/{id}")
+    public String addSeparate(@PathVariable Long id, @RequestParam BigDecimal amount, Model model, RedirectAttributes redirectAttributes){
+        if (!savingService.isSavingIdValidForUser(id)){
+            throw new NullPointerException();
+        }
+        boolean success= savingService.addSeparate(id, amount);
+        if (!success){
+            redirectAttributes.addFlashAttribute("invalid", true);
+            return "redirect:/savings/add-amount/separate/" + id;
+        }
+        return "redirect:/savings/all";
     }
 
 }

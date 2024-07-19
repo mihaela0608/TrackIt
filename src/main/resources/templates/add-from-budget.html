@@ -12,13 +12,10 @@
 <div class="content-wrapper">
 <div class="container">
     <h1>Add to Savings</h1>
-    <form>
-        <div class="form-group">
-            <label for="budget">Select Budget</label>
-            <select id="budget" name="budget" required>
-                <option value="low">Low Budget</option>
-                <option value="medium">Medium Budget</option>
-                <option value="high">High Budget</option>
+    <form th:action="@{/savings/add-amount/budget/{id}(id=${id})}" th:method="post">    <div class="form-group">
+    <label for="budget">Select Budget</label>
+            <select id="budget" name="budget" required >
+                <option th:each="budget : ${budgets}" th:text="${budget.categoryName}" th:value="${budget.categoryName}">Low Budget</option>
             </select>
         </div>
         <div class="form-group">

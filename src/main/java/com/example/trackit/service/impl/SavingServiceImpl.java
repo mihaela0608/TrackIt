@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,4 +53,17 @@ public class SavingServiceImpl implements SavingService {
                 .filter(s -> s.getId() == id).findFirst();
         return optionalSaving.isPresent();
     }
+
+    @Override
+    public boolean addSeparate(long id, BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0){
+            return false;
+        }
+        Saving saving = savingRepository.findById(id).get();
+        saving.setSavedAmount(saving.getSavedAmount().add(amount));
+        savingRepository.save(saving);
+        return true;
+    }
+
+
 }
