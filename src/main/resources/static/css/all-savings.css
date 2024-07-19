@@ -1,0 +1,188 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(120deg, #e0f7fa, #c8e6c9, #e8f5e9);
+    background-size: 200% 200%;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    animation: backgroundAnimation 10s infinite alternate;
+}
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+@keyframes backgroundAnimation {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.savings-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 1.5s ease-in-out;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #388e3c;
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    animation: slideInFromLeft 1s ease-out;
+}
+
+@keyframes slideInFromLeft {
+    0% { opacity: 0; transform: translateX(-100%); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+p.subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #555;
+    text-align: center;
+    animation: slideInFromRight 1s ease-out;
+}
+
+@keyframes slideInFromRight {
+    0% { opacity: 0; transform: translateX(100%); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+.savings-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 10px 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.savings-card:hover {
+    transform: translateY(-10px);
+}
+
+.savings-card h3 {
+    color: #388e3c;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.savings-card p {
+    color: #555;
+    margin: 5px 0;
+    text-align: center;
+}
+
+.button-group {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+}
+
+.button-group a, .button-group button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+}
+
+.button-group a.edit {
+    background-color: #66bb6a;
+}
+
+.button-group a.edit:hover {
+    background-color: #388e3c;
+}
+
+.button-group a.add {
+    background-color: #ffa726;
+}
+
+.button-group a.add:hover {
+    background-color: #fb8c00;
+}
+
+.button-group button.delete {
+    background-color: #ef5350;
+}
+
+.button-group button.delete:hover {
+    background-color: #e53935;
+}
+
+@media (max-width: 768px) {
+    .savings-container {
+        width: 90%;
+        padding: 30px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    p.subtitle {
+        font-size: 16px;
+    }
+
+    .savings-card h3 {
+        font-size: 20px;
+    }
+
+    .button-group a, .button-group button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .savings-container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    p.subtitle {
+        font-size: 14px;
+    }
+
+    .savings-card h3 {
+        font-size: 18px;
+    }
+
+    .button-group a, .button-group button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}

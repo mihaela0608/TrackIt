@@ -1,0 +1,125 @@
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        background: url('https://www.transparenttextures.com/patterns/modern-fabric.png') repeat, linear-gradient(135deg, #f3e5f5, #e1bee7);
+        color: #333;
+        padding: 0;
+        margin: 0;
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 60px);
+        padding: 20px;
+    }
+
+    .decision-form {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        margin: 20px;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid #6a1b9a;
+    }
+
+    .decision-form::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(106, 27, 154, 0.1), rgba(171, 71, 188, 0.1));
+        opacity: 0.2;
+        z-index: 0;
+        border-radius: 12px;
+        pointer-events: none;
+    }
+
+    .decision-form h2 {
+        margin-bottom: 20px;
+        font-size: 2.2rem;
+        color: #6a1b9a;
+        position: relative;
+        z-index: 1;
+    }
+
+    .budget-options {
+        margin-bottom: 20px;
+        text-align: left;
+        position: relative;
+        z-index: 1;
+    }
+
+    .budget-options label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+        color: #555;
+        cursor: pointer;
+        padding-left: 35px;
+        position: relative;
+    }
+
+    .budget-options input[type="radio"] {
+        margin-right: 15px;
+    }
+
+    .decision-form button {
+        background-color: #6a1b9a;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        position: relative;
+        z-index: 1;
+    }
+
+    .decision-form button:hover {
+        background-color: #ab47bc;
+        transform: scale(1.05);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .decision-form h2 {
+            font-size: 1.8rem;
+        }
+
+        .decision-form button {
+            padding: 12px 20px;
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .decision-form {
+            padding: 20px;
+        }
+
+        .budget-options label {
+            font-size: 1rem;
+            padding-left: 30px;
+        }
+
+        .decision-form h2 {
+            font-size: 1.6rem;
+        }
+    }

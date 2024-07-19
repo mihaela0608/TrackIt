@@ -22,7 +22,7 @@ public class Saving extends BaseEntity{
     @Column(nullable = false)
     private String goal;
     @Column(name = "saved_amount")
-    private BigDecimal savedAmount;
+    private BigDecimal savedAmount = BigDecimal.ZERO;
     @Column(name = "target_amount", nullable = false)
     private BigDecimal targetAmount;
     private String description;

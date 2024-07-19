@@ -6,9 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -39,16 +37,37 @@ public class SavingsController {
         savingService.addSaving(savingData);
         return "redirect:/home";
     }
+    @GetMapping("/all")
+    public String viewAllSavings(Model model){
+        model.addAttribute("savings", savingService.allDetails());
+        return "all-savings";
+    }
 
+    @GetMapping("/choose/{id}")
+    public String chooseType(@PathVariable Long id, Model model){
+        if (!savingService.isSavingIdValidForUser(id)){
+            throw new NullPointerException();
+        }
+        //TODO: MAKE IT BETTER
+        model.addAttribute("id", id);
+        return "choose-saving";
+    }
+    @PostMapping("/choose/{id}")
+    public String selectType(@PathVariable Long id, @RequestParam("budget-source") String source){
+        if (source.equals("budget")){
+            return "redirect:/savings/add-amount/budget/" + id;
+        } else if (source.equals("separate")) {
+            return "redirect:/savings/add-amount/separate/" + id;
+        }
+        return "redirect:/home";
+    }
+    @GetMapping("/savings/add-amount/budget/{id}")
+    public String viewFromBudget(@PathVariable Long id){
+        return "/";
+    }
+    @GetMapping("/savings/add-amount/separate/{id}")
+    public String viewSeparate(@PathVariable Long id){
+        return "/";
+    }
 
-
-
-
-
-
-
-
-    //TODO: Make the logic for saving
-
-    //TODO: MAKE THE INTER. FOR ALL FORMS
 }

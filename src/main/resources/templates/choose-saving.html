@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Allocation Decision</title>
+    <link href="/css/navbar.css" rel="stylesheet">
+    <link href="/css/choose-saving.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<main>
+    <div class="decision-form">
+        <h2>Select Budget Source</h2>
+        <form th:action="@{/savings/choose/{id}(id=${id})}" th:method="post">
+            <div class="budget-options">
+                <label>
+                    <input type="radio" name="budget-source" value="budget" required>
+                    From Budget
+                </label>
+                <label>
+                    <input type="radio" name="budget-source" value="separate" required>
+                    Separate
+                </label>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>
