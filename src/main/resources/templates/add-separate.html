@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Amount</title>
+  <link href="/css/navbar.css" rel="stylesheet">
+  <link href="/css/add-separate.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="content-wrapper">
+<div class="container">
+  <h1>Add Amount</h1>
+  <form action="/your-endpoint" method="post">
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input type="number" id="amount" name="amount" min="0" placeholder="Enter amount" required>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+</div>
+</body>
+</html>

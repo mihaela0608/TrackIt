@@ -61,13 +61,16 @@ public class SavingsController {
         }
         return "redirect:/home";
     }
-    @GetMapping("/savings/add-amount/budget/{id}")
+    @GetMapping("/add-amount/budget/{id}")
     public String viewFromBudget(@PathVariable Long id){
-        return "/";
+        if (!savingService.isSavingIdValidForUser(id)){
+            throw new NullPointerException();
+        }
+        return "add-from-budget";
     }
-    @GetMapping("/savings/add-amount/separate/{id}")
+    @GetMapping("/add-amount/separate/{id}")
     public String viewSeparate(@PathVariable Long id){
-        return "/";
+        return "add-separate";
     }
 
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to Savings</title>
+    <link href="/css/navbar.css" rel="stylesheet">
+    <link href="/css/add-from-budget.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="content-wrapper">
+<div class="container">
+    <h1>Add to Savings</h1>
+    <form>
+        <div class="form-group">
+            <label for="budget">Select Budget</label>
+            <select id="budget" name="budget" required>
+                <option value="low">Low Budget</option>
+                <option value="medium">Medium Budget</option>
+                <option value="high">High Budget</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" min="0"  placeholder="Enter amount" required>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+</div>
+</div>
+</body>
+</html>
