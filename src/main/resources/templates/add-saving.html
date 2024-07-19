@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Saving Goal</title>
+    <title th:text="#{newSavingGoal_title}">New Saving Goal</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -17,27 +17,27 @@
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <div class="content-wrapper">
-<div class="saving-form">
-    <h2>Create New Saving Goal</h2>
-    <form action="/savings/create" method="post">
-        <div class="input-icon">
-            <label for="goal">Saving Goal</label>
-            <i class="fas fa-bullseye"></i>
-            <input type="text" id="goal" name="goal" required>
-        </div>
-        <div class="input-icon">
-            <label for="targetAmount">Target Amount</label>
-            <i class="fas fa-money-bill-wave"></i>
-            <input type="number" id="targetAmount" name="targetAmount" required min="0" step="0.01">
-        </div>
-        <div class="input-icon">
-            <label for="description">Description</label>
-            <i class="fas fa-align-left"></i>
-            <input type="text" id="description" name="description">
-        </div>
-        <button type="submit">Create Saving Goal</button>
-    </form>
-</div>
+    <div class="saving-form">
+        <h2 th:text="#{newSavingGoal_heading}">Create New Saving Goal</h2>
+        <form action="/savings/create" method="post">
+            <div class="input-icon">
+                <label for="goal" th:text="#{newSavingGoal_goalLabel}">Saving Goal</label>
+                <i class="fas fa-bullseye"></i>
+                <input type="text" id="goal" name="goal" required>
+            </div>
+            <div class="input-icon">
+                <label for="targetAmount" th:text="#{newSavingGoal_targetAmountLabel}">Target Amount</label>
+                <i class="fas fa-money-bill-wave"></i>
+                <input type="number" id="targetAmount" name="targetAmount" required min="0" step="0.01">
+            </div>
+            <div class="input-icon">
+                <label for="description" th:text="#{newSavingGoal_descriptionLabel}">Description</label>
+                <i class="fas fa-align-left"></i>
+                <input type="text" id="description" name="description">
+            </div>
+            <button type="submit" th:text="#{newSavingGoal_submitButton}">Create Saving Goal</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
