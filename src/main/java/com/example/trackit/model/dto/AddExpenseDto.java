@@ -20,11 +20,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AddExpenseDto {
 
-    @NotBlank(message = "Category is required")
+    @NotBlank(message = "{addExpenseDto.categoryName.NotBlank}")
     private String categoryName;
-    @NotNull
-    @Positive(message = "Amount should be a positive number")
+
+    @NotNull(message = "{addExpenseDto.amount.NotNull}")
+    @Positive(message = "{addExpenseDto.amount.Positive}")
     private BigDecimal amount;
-    @Size(max = 120)
+
+    @Size(max = 120, message = "{addExpenseDto.description.Size}")
     private String description;
 }

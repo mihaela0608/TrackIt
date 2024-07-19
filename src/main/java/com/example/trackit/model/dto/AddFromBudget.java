@@ -13,11 +13,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class AddFromBudget {
 
-    @NotNull
+    @NotNull(message = "{addFromBudget.categoryName.NotNull}")
     private String categoryName;
-    @Positive
-    @NotNull
+
+    @Positive(message = "{addFromBudget.newAmount.Positive}")
+    @NotNull(message = "{addFromBudget.newAmount.NotNull}")
     private BigDecimal newAmount;
-
-
 }

@@ -14,14 +14,15 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 public class AddSavingDto {
-    @NotBlank(message = "Goal should be between 3 and 25 symbols")
-    @Size(min = 3, max = 25, message = "Goal should be between 3 and 25 symbols")
+
+    @NotNull(message = "{addSavingDto.goal.NotBlank}")
+    @Size(min = 3, max = 25, message = "{addSavingDto.goal.Size}")
     private String goal;
-    @Positive(message = "Target amount should be positive number")
-    @NotNull(message = "Target amount should be positive number")
+
+    @Positive(message = "{addSavingDto.targetAmount.Positive}")
+    @NotNull(message = "{addSavingDto.targetAmount.NotNull}")
     private BigDecimal targetAmount;
-    @Size(max = 240, message = "Description should not be more than 240 symbols")
+
+    @Size(max = 240, message = "{addSavingDto.description.Size}")
     private String description;
-
-
 }

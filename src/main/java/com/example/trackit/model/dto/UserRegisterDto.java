@@ -3,6 +3,7 @@ package com.example.trackit.model.dto;
 import com.example.trackit.model.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,18 +18,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UserRegisterDto {
 
-        @NotBlank
-        @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 symbols")
+        @NotNull(message = "{userRegisterDto.username.NotBlank}")
+        @Size(min = 3, max = 20, message = "{userRegisterDto.username.Size}")
         private String username;
-        @NotBlank
-        @Size(min = 6, max = 40, message = "Email length must be between 6 and 40 symbols")
-        @Email
+
+        @NotNull(message = "{userRegisterDto.email.NotBlank}")
+        @Size(min = 6, max = 40, message = "{userRegisterDto.email.Size}")
+        @Email(message = "{userRegisterDto.email.Email}")
         private String email;
 
-        @NotBlank
-        @Size(min = 5, max = 20, message = "Password length must be between 5 and 20 symbols")
+        @NotNull(message = "{userRegisterDto.password.NotBlank}")
+        @Size(min = 5, max = 20, message = "{userRegisterDto.password.Size}")
         private String password;
 
         private String confirmPassword;
-
 }

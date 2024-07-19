@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Allocation Decision</title>
+    <title th:text="#{budgetAllocationDecision_title}">Budget Allocation Decision</title>
     <link href="/css/navbar.css" rel="stylesheet">
     <link href="/css/choose-saving.css" rel="stylesheet">
 </head>
@@ -11,19 +11,19 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <main>
     <div class="decision-form">
-        <h2>Select Budget Source</h2>
+        <h2 th:text="#{budgetAllocationDecision_heading}">Select Budget Source</h2>
         <form th:action="@{/savings/choose/{id}(id=${id})}" th:method="post">
             <div class="budget-options">
                 <label>
                     <input type="radio" name="budget-source" value="budget" required>
-                    From Budget
+                    <span th:text="#{budgetAllocationDecision_fromBudget}">From Budget</span>
                 </label>
                 <label>
                     <input type="radio" name="budget-source" value="separate" required>
-                    Separate
+                    <span th:text="#{budgetAllocationDecision_separate}">Separate</span>
                 </label>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" th:text="#{budgetAllocationDecision_submitButton}">Submit</button>
         </form>
     </div>
 </main>

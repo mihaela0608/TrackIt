@@ -13,11 +13,10 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 public class AddBudgetDto {
-    @NotNull(message = "Category is required")
+    @NotNull(message = "{addBudgetDto.categoryName.NotNull}")
     private String categoryName;
-    @Positive(message = "Amount should be positive number")
-    @NotNull
-    @Positive(message = "Amount should be positive")
-    private BigDecimal amount;
 
+    @NotNull(message = "{addBudgetDto.amount.NotNull}")
+    @Positive(message = "{addBudgetDto.amount.Positive}")
+    private BigDecimal amount;
 }

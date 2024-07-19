@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Amount</title>
-  <link href="/css/navbar.css" rel="stylesheet">
-  <link href="/css/add-separate.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{addAmount_title}">Add Amount</title>
+    <link href="/css/navbar.css" rel="stylesheet">
+    <link href="/css/add-separate.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <div class="content-wrapper">
-<div class="container">
-  <h1>Add Amount</h1>
-  <form th:action="@{/savings/add-amount/separate/{id}(id=${id})}" th:method="post">    <div class="form-group">
-      <label for="amount">Amount</label>
-      <p th:if="${invalid}">The amount should be positive number</p>
-      <input type="number" id="amount" name="amount" min="0" placeholder="Enter amount" required>
+    <div class="container">
+        <h1 th:text="#{addAmount_heading}">Add Amount</h1>
+        <form th:action="@{/savings/add-amount/separate/{id}(id=${id})}" th:method="post">
+            <div class="form-group">
+                <label for="amount" th:text="#{addAmount_amountLabel}">Amount</label>
+                <p th:if="${invalid}" th:text="#{addAmount_invalidAmount}">The amount should be positive number</p>
+                <input type="number" id="amount" name="amount" min="0" placeholder="#" th:placeholder="#{addAmount_amountPlaceholder}" required>
+            </div>
+            <button type="submit" th:text="#{addAmount_submitButton}">Submit</button>
+        </form>
     </div>
-    <button type="submit">Submit</button>
-  </form>
-</div>
 </div>
 </body>
 </html>

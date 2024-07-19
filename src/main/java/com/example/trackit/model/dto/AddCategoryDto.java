@@ -1,6 +1,7 @@
 package com.example.trackit.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +11,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AddCategoryDto {
-    @NotBlank
-    @Size(min = 3, max = 50, message = "Name should be between 3 and 50 symbols")
+    @NotNull
+    @Size(min = 3, max = 50, message = "{addCategoryDto.name.Size}")
     private String name;
-    @NotBlank
-    @Size(min = 3, max = 120, message = "Description should be between 3 and 120 symbols")
-    private String description;
 
+    @NotNull
+    @Size(min = 3, max = 120, message = "{addCategoryDto.description.Size}")
+    private String description;
 }
