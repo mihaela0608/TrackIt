@@ -58,4 +58,8 @@ public class UserController {
     public String logout(){
         return "redirect:/";
     }
+    @GetMapping("/profile")
+    public String viewProfile(){
+        return "user-profile";
+    }
 }
