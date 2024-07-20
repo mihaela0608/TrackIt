@@ -59,7 +59,8 @@ public class UserController {
         return "redirect:/";
     }
     @GetMapping("/profile")
-    public String viewProfile(){
+    public String viewProfile(Model model){
+        model.addAttribute("userData", userService.getUserDetails());
         return "user-profile";
     }
 }
