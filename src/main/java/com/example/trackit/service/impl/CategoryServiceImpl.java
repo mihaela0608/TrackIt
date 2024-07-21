@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -43,6 +44,19 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDetailsDto> getAllDetails() {
         return getAllForUser().stream().map(CategoryServiceImpl::getCategoryDetailsDto
         ).toList();
+    }
+
+    @Override
+    public void deleteCategory(String categoryName) {
+        Category category = categoryRepository.findAll().stream()
+                .filter(c -> c.getUser().getId() == userHelperService.getUser().getId())
+                .filter(c -> c.getName().equals(categoryName))
+                .findFirst().orElseThrow();
+        if (category.getUser().getId() == 1){
+            throw new NullPointerException();
+        }
+        categoryRepository.delete(category);
+
     }
 
     private static CategoryDetailsDto getCategoryDetailsDto(Category c) {

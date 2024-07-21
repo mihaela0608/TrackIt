@@ -16,8 +16,8 @@
         <div class="category-item" th:each="category : ${categories}">
             <h2 th:text="${category.categoryName}">Category 1</h2>
             <p th:text="#{categories_description} + ': ' + ${category.description}"></p>
-            <div th:if="${category.userId == id}" class="btn-container">
-                <form th:action="@{'/delete-category/' + ${category.categoryName}}" method="post" style="display:inline;">
+            <div th:unless="${category.userId == 1}" class="btn-container">
+                <form th:action="@{'/categories/delete/' + ${category.categoryName}}" method="post" style="display:inline;">
                     <input type="hidden" name="_method" value="delete">
                     <button type="submit" class="delete-btn" th:text="#{categories_delete_button}">Delete</button>
                 </form>
