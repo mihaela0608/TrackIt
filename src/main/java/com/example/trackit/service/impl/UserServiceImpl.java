@@ -1,5 +1,6 @@
 package com.example.trackit.service.impl;
 
+import com.example.trackit.model.dto.UserData;
 import com.example.trackit.model.dto.UserDetailsDto;
 import com.example.trackit.model.dto.UserRegisterDto;
 import com.example.trackit.model.entity.Expense;
@@ -10,28 +11,26 @@ import com.example.trackit.repository.UserRepository;
 import com.example.trackit.service.UserService;
 import com.example.trackit.service.session.UserHelperService;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserHelperService userHelperService;
+    private final RestClient restClient;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserHelperService userHelperService) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
-        this.userHelperService = userHelperService;
-    }
+
 
     @Override
     public boolean registerUser(UserRegisterDto userRegisterDto) {
@@ -39,8 +38,19 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         User user = getUser(userRegisterDto);
-        userRepository.save(user);
+        User save = userRepository.save(user);
+        addLastMonthProfile(save);
         return true;
+    }
+
+    private void addLastMonthProfile(User user) {
+        UserData userData = new UserData(user.getId());
+        userData.setLastMonthSavings(BigDecimal.ZERO);
+        userData.setLastMonthExpenses(BigDecimal.ZERO);
+        restClient.post()
+                .uri("http://localhost:8081/api/userdata")
+                .body(userData)
+                .retrieve();
     }
 
     @Override

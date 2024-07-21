@@ -15,6 +15,7 @@ public class UserDetailsDto {
     private String username;
     private String email;
     private String registrationDate;
+    private long hereFrom;
     private BigDecimal expensesSum;
     private BigDecimal savingsSum;
 
