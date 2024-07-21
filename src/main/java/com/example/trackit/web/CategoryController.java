@@ -2,6 +2,7 @@ package com.example.trackit.web;
 
 import com.example.trackit.model.dto.AddCategoryDto;
 import com.example.trackit.service.CategoryService;
+import com.example.trackit.service.session.UserHelperService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
+    private final UserHelperService userHelperService;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, UserHelperService userHelperService) {
         this.categoryService = categoryService;
+        this.userHelperService = userHelperService;
     }
 
     @GetMapping("/create")
@@ -45,6 +48,7 @@ public class CategoryController {
     @GetMapping("/all")
     public String viewAll(Model model){
         model.addAttribute("categories", categoryService.getAllDetails());
+        model.addAttribute("id", userHelperService.getUser().getId());
         return "all-categories";
     }
 
