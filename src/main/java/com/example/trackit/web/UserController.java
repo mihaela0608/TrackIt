@@ -63,4 +63,9 @@ public class UserController {
         model.addAttribute("userData", userService.getUserDetails());
         return "user-profile";
     }
+    @GetMapping("/admin")
+    public String viewAllUsers(Model model){
+        model.addAttribute("users", userService.findAllForAdmin());
+        return "admin";
+    }
 }

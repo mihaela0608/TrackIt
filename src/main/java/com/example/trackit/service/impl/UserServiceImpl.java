@@ -2,6 +2,7 @@ package com.example.trackit.service.impl;
 
 import com.example.trackit.model.dto.UserData;
 import com.example.trackit.model.dto.UserDetailsDto;
+import com.example.trackit.model.dto.UserForAdmin;
 import com.example.trackit.model.dto.UserRegisterDto;
 import com.example.trackit.model.entity.Expense;
 import com.example.trackit.model.entity.Saving;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -73,6 +75,13 @@ public class UserServiceImpl implements UserService {
                 .uri("http://localhost:8081/api/userdata/update")
                 .body(userData)
                 .retrieve();
+    }
+
+    @Override
+    public List<UserForAdmin> findAllForAdmin() {
+        return userRepository.findAll().stream()
+                .map(u -> modelMapper.map(u, UserForAdmin.class))
+                .toList();
     }
 
     private User getUser(UserRegisterDto userRegisterDto) {

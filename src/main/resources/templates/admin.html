@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="/css/navbar.css" rel="stylesheet">
+    <link href="/css/admin.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="content-wrapper">
+<div class="container">
+    <div class="header">
+        <h1>Admin Dashboard</h1>
+    </div>
+
+    <div class="user-list">
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}">John Doe</td>
+                <td th:text="${user.email}">john.doe@example.com</td>
+                <td><button class="delete-btn" disabled>Delete</button></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</body>
+</html>
