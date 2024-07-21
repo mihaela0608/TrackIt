@@ -14,4 +14,6 @@ public interface UserService {
     void updateUserProgress(User user);
 
     List<UserForAdmin> findAllForAdmin();
+
+    void deleteUser(Long id);
 }

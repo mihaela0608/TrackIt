@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserForAdmin {
+    private long id;
     private String username;
     private String email;
 }

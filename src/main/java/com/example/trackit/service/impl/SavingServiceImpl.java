@@ -90,5 +90,14 @@ public class SavingServiceImpl implements SavingService {
         return true;
     }
 
+    @Override
+    public void deleteSaving(Long id) {
+        Saving saving = savingRepository.findById(id).get();
+        if (saving.getUser().getId() != userHelperService.getUser().getId()){
+            throw new NullPointerException();
+        }
+        savingRepository.deleteById(id);
+    }
+
 
 }

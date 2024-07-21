@@ -118,5 +118,11 @@ public class SavingsController {
         }
         return "redirect:/savings/all";
     }
+    @DeleteMapping("/delete/{id}")
+    public String deleteSaving(@PathVariable Long id){
+        savingService.deleteSaving(id);
+        return "redirect:/savings/all";
+    }
+
 
 }

@@ -80,8 +80,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserForAdmin> findAllForAdmin() {
         return userRepository.findAll().stream()
+                .filter(u -> u.getId() != 1)
                 .map(u -> modelMapper.map(u, UserForAdmin.class))
                 .toList();
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        if (userHelperService.getUser().getId() != 1){
+            throw new NullPointerException();
+        }
+        userRepository.deleteById(id);
     }
 
     private User getUser(UserRegisterDto userRegisterDto) {

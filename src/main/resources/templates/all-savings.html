@@ -23,7 +23,10 @@
             <div class="button-group">
                 <a class="edit" th:text="#{yourSavingsGoals_editButton}" href="#">Edit</a>
                 <a th:href="@{'/savings/choose/' + ${saving.id}}" class="add" th:text="#{yourSavingsGoals_addButton}">Add Amount</a>
-                <button class="delete" th:text="#{yourSavingsGoals_deleteButton}">Delete</button>
+                <form th:action="@{'/savings/delete/' + ${saving.id}}" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <button type="submit" class="delete">Delete</button>
+                </form>
             </div>
         </div>
     </div>

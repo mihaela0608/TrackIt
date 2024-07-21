@@ -7,7 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -67,5 +69,13 @@ public class UserController {
     public String viewAllUsers(Model model){
         model.addAttribute("users", userService.findAllForAdmin());
         return "admin";
+    }
+    @DeleteMapping("/admin/delete/{id}")
+    public String deleteUser(@PathVariable Long id){
+        if (id == 1){
+            throw new RuntimeException();
+        }
+        userService.deleteUser(id);
+        return "redirect:/admin";
     }
 }
