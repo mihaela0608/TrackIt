@@ -51,6 +51,7 @@ public class CategoryController {
     @DeleteMapping("/delete/{categoryName}")
     public String deleteCategory(@PathVariable String categoryName){
         categoryService.deleteCategory(categoryName);
-        return "redirect:/home";
+        return "redirect:/categories/all";
     }
+    //TODO: THINK ABOUT WHEN CATEGORY IS USED
 }

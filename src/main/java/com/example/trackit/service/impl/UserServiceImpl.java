@@ -7,8 +7,7 @@ import com.example.trackit.model.dto.UserRegisterDto;
 import com.example.trackit.model.entity.Expense;
 import com.example.trackit.model.entity.Saving;
 import com.example.trackit.model.entity.User;
-import com.example.trackit.repository.RoleRepository;
-import com.example.trackit.repository.UserRepository;
+import com.example.trackit.repository.*;
 import com.example.trackit.service.UserService;
 import com.example.trackit.service.session.UserHelperService;
 import jakarta.transaction.Transactional;
@@ -31,6 +30,10 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserHelperService userHelperService;
     private final RestClient restClient;
+    private final BudgetRepository budgetRepository;
+    private final CategoryRepository categoryRepository;
+    private final ExpenseRepository expenseRepository;
+    private final SavingRepository savingRepository;
 
 
 
@@ -87,9 +90,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
+        User user = userRepository.findById(id).get();
         if (userHelperService.getUser().getId() != 1){
             throw new NullPointerException();
         }
+        categoryRepository.deleteAll(categoryRepository.findByUser(user));
+        budgetRepository.deleteAll(budgetRepository.findByUser(user));
+        savingRepository.deleteAll(savingRepository.findByUser(user));
+        expenseRepository.deleteAll(expenseRepository.findByUser(user));
         userRepository.deleteById(id);
     }
 

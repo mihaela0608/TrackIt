@@ -75,6 +75,7 @@ public class UserController {
         if (id == 1){
             throw new RuntimeException();
         }
+
         userService.deleteUser(id);
         return "redirect:/admin";
     }
