@@ -10,4 +10,5 @@ public interface ExpenseService {
     boolean addExpense(AddExpenseDto addExpenseDto);
     List<ViewExpenseDto> allExpenses();
     List<ViewExpensesDetails> allDetails();
+    void deleteAll();
 }

@@ -62,6 +62,11 @@ public class BudgetServiceImpl implements BudgetService {
         return true;
     }
 
+    @Override
+    public void deleteAll() {
+        budgetRepository.deleteAll();
+    }
+
     private ViewAllBudgetDto map(Budget budget){
         ViewAllBudgetDto budgetDto = modelMapper.map(budget, ViewAllBudgetDto.class);
         budgetDto.setSpentAmount(budget.getSpentAmount());

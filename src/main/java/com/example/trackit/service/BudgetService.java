@@ -10,4 +10,5 @@ public interface BudgetService {
     boolean addBudget(AddBudgetDto addBudgetDto);
     List<ViewAllBudgetDto> viewAll();
     boolean editBudget(String categoryName, BigDecimal amount);
+    void deleteAll();
 }

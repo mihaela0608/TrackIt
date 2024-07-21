@@ -82,6 +82,11 @@ public class ExpenseServiceImpl implements ExpenseService {
                 }).toList();
     }
 
+    @Override
+    public void deleteAll() {
+        expenseRepository.deleteAll();
+    }
+
     private static boolean haveEnoughMoney(Optional<Budget> optionalBudget, BigDecimal amountForSpending) {
         Budget budget = optionalBudget.get();
         BigDecimal budgetAmount =budget.getAmount();

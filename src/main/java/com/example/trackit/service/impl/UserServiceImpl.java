@@ -64,6 +64,17 @@ public class UserServiceImpl implements UserService {
         return userDetailsDto;
     }
 
+    @Override
+    public void updateUserProgress(User user) {
+        UserData userData = new UserData(user.getId());
+        userData.setLastMonthExpenses(user.getExpenses().stream().map(Expense::getAmount).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add));
+        userData.setLastMonthSavings(user.getSavings().stream().map(Saving::getSavedAmount).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add));
+        restClient.post()
+                .uri("http://localhost:8081/api/userdata/update")
+                .body(userData)
+                .retrieve();
+    }
+
     private User getUser(UserRegisterDto userRegisterDto) {
         User user = modelMapper.map(userRegisterDto, User.class);
         user.setRole(roleRepository.findByName("USER").get());
