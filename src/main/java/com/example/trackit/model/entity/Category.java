@@ -28,4 +28,7 @@ public class Category extends BaseEntity{
         this.name = name;
         this.description = description;
     }
+    public Category(String name) {
+        this.name = name;
+    }
 }

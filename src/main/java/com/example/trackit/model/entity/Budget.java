@@ -30,5 +30,9 @@ public class Budget extends BaseEntity{
     @Column(name = "spent-amount")
     private BigDecimal spentAmount = BigDecimal.ZERO;
 
-
+    public Budget(BigDecimal amount, BigDecimal spentAmount, Category category) {
+        this.amount = amount;
+        this.spentAmount = spentAmount;
+        this.category = category;
+    }
 }
