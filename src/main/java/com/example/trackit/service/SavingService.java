@@ -11,7 +11,6 @@ public interface SavingService {
     void addSaving(AddSavingDto addSavingDto);
     List<SavingDetails> allDetails();
 
-    boolean addAmountFromBudget(long id, AddFromBudget addFromBudget);
     boolean isSavingIdValidForUser(long id);
     boolean addSeparate(long id, BigDecimal amount);
     boolean addFromBudget(long id, AddFromBudget fromBudget);

@@ -45,10 +45,6 @@ public class SavingServiceImpl implements SavingService {
                 .map(s -> modelMapper.map(s, SavingDetails.class)).toList();
     }
 
-    @Override
-    public boolean addAmountFromBudget(long id, AddFromBudget addFromBudget) {
-        return false;
-    }
 
     @Override
     @Transactional

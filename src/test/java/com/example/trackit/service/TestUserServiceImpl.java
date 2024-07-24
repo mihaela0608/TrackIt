@@ -6,6 +6,7 @@ import com.example.trackit.model.entity.User;
 import com.example.trackit.repository.*;
 import com.example.trackit.service.impl.UserServiceImpl;
 import com.example.trackit.service.session.UserHelperService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -16,34 +17,34 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestClient;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
+@SpringBootTest
+@AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
 public class TestUserServiceImpl {
+    @Autowired
+    private MockMvc mockMvc;
 
-    //private final UserRepository userRepository;
-    //    private final RoleRepository roleRepository;
-    //    private final ModelMapper modelMapper;
-    //    private final PasswordEncoder passwordEncoder;
-    //    private final UserHelperService userHelperService;
-    //    private final RestClient restClient;
-    //    private final BudgetRepository budgetRepository;
-    //    private final CategoryRepository categoryRepository;
-    //    private final ExpenseRepository expenseRepository;
-    //    private final SavingRepository savingRepository;
+    @InjectMocks
     private UserServiceImpl testUserService;
-    @Mock
+    @Autowired
     private UserRepository userRepository;
-    @Mock
+    @Autowired
     private RoleRepository roleRepository;
     @Mock
     private UserHelperService userHelperService;
@@ -62,41 +63,41 @@ public class TestUserServiceImpl {
     @Captor
     private ArgumentCaptor<User> userEntityCaptor;
 
+
     public TestUserServiceImpl() {
     }
 
     @BeforeEach
     void setUp(){
-        testUserService = new UserServiceImpl(
-                userRepository,
-                roleRepository,
-                new ModelMapper(),
-                passwordEncoder,
-                userHelperService,
-                restClient,
-                budgetRepository,
-                categoryRepository,
-                expenseRepository,
-                savingRepository
-        );
+        Role userRole = new Role();
+        userRole.setName("USER");
+        roleRepository.save(userRole);
+
+        Role adminRole = new Role();
+        adminRole.setName("ADMIN");
+        roleRepository.save(adminRole);
     }
     @Test
+    @Transactional
     void testUserRegistration(){
         UserRegisterDto userRegisterDto =
                 new UserRegisterDto("testUsername", "testEmail", "testPassword", "testConfirm");
+        when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
+        doNothing().when(restClient).post()
+                .uri(anyString())
+                .body(any())
+                .retrieve();
+        boolean result = testUserService.registerUser(userRegisterDto);
+        Assertions.assertTrue(result);
+        Optional<User> registeredUser = userRepository.findByEmail("testEmail");
+        Assertions.assertTrue(registeredUser.isPresent());
+        User user = registeredUser.get();
+        Assertions.assertEquals(userRegisterDto.getUsername(), user.getUsername());
+        Assertions.assertEquals(userRegisterDto.getEmail(), user.getEmail());
+        Assertions.assertEquals("encodedPassword", user.getPassword());
+        Assertions.assertNotNull(user.getRole());
+        Assertions.assertEquals("USER", user.getRole().getName());
 
-        when(passwordEncoder.encode(userRegisterDto.getPassword()))
-                .thenReturn(userRegisterDto.getPassword()+userRegisterDto.getPassword());
-        when(roleRepository.findByName("USER")).thenReturn(Optional.of(new Role("USER")));
-        when(roleRepository.findByName("ADMIN")).thenReturn(Optional.of(new Role("ADMIN")));
-
-        testUserService.registerUser(userRegisterDto);
-
-        verify(userRepository).save(userEntityCaptor.capture());
-        User userActual = userEntityCaptor.getValue();
-        Assertions.assertNotNull(userActual);
-        Assertions.assertEquals(userActual.getUsername(), userRegisterDto.getUsername());
-        Assertions.assertEquals(userActual.getEmail(), userRegisterDto.getEmail());
-        Assertions.assertEquals(userActual.getPassword(), userRegisterDto.getPassword());
     }
+
 }
