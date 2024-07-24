@@ -67,7 +67,8 @@ public class TestBudgetServiceImpl {
         Assertions.assertEquals(viewAllBudgetDto.getSpentAmount(), testBudget1.getSpentAmount());
         Assertions.assertEquals(viewAllBudgetDto.getCategoryName(), testBudget1.getCategory().getName());
 
-
     }
+
+
 
 }

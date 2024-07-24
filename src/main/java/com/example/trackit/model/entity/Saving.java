@@ -26,4 +26,9 @@ public class Saving extends BaseEntity{
     @Column(name = "target_amount", nullable = false)
     private BigDecimal targetAmount;
     private String description;
+
+    public Saving(String goal, BigDecimal targetAmount) {
+        this.goal = goal;
+        this.targetAmount = targetAmount;
+    }
 }
