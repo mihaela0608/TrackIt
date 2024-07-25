@@ -6,10 +6,12 @@ import com.example.trackit.model.entity.Category;
 import com.example.trackit.repository.CategoryRepository;
 import com.example.trackit.service.CategoryService;
 import com.example.trackit.service.session.UserHelperService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -47,7 +49,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(String categoryName) {
+    @Transactional
+    public boolean deleteCategory(String categoryName) {
         Category category = categoryRepository.findAll().stream()
                 .filter(c -> c.getUser().getId() == userHelperService.getUser().getId())
                 .filter(c -> c.getName().equals(categoryName))
@@ -55,8 +58,11 @@ public class CategoryServiceImpl implements CategoryService {
         if (category.getUser().getId() == 1){
             throw new NullPointerException();
         }
+        if (!userHelperService.getUser().getBudgets().stream().filter(b -> Objects.equals(b.getCategory().getName(), categoryName)).toList().isEmpty()){
+            return false;
+        }
         categoryRepository.delete(category);
-
+        return  true;
     }
 
     private static CategoryDetailsDto getCategoryDetailsDto(Category c) {

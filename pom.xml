@@ -83,6 +83,7 @@
         </dependency>
 
 
+
         <!-- Thymeleaf Extras Spring Security 6 -->
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>

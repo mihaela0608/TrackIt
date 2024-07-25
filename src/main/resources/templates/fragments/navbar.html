@@ -5,10 +5,10 @@
         </div>
         <ul>
             <li th:if="${@userHelperService.isAuthenticated()}"><a th:href="@{/home}" th:text="#{nav_bar_home}">Home</a></li>
-            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}" >Admin</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}" th:text="#{nav_bar_admin}">Admin</a></li>
             <li th:unless="${@userHelperService.isAuthenticated()}"><a th:href="@{/register}" th:text="#{nav_bar_register}">Register</a></li>
             <li th:unless="${@userHelperService.isAuthenticated()}"><a th:href="@{/login}" th:text="#{nav_bar_login}">Login</a></li>
-            <li th:if="${@userHelperService.isAuthenticated()}"><a th:href="@{/profile}"><i class="fas fa-user"></i> Profile</a></li>
+            <li th:if="${@userHelperService.isAuthenticated()}"><a th:href="@{/profile}" th:text="#{nav_bar_profile}"><i class="fas fa-user"></i> Profile</a></li>
             <li th:if="${@userHelperService.isAuthenticated()}">
                 <form th:action="@{/logout}" th:method="post" style="display: inline;">
                     <button type="submit" class="logout-button" th:text="#{nav_bar_logout}">Logout</button>

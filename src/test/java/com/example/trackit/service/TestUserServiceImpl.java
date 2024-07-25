@@ -7,87 +7,115 @@ import com.example.trackit.repository.*;
 import com.example.trackit.service.impl.UserServiceImpl;
 import com.example.trackit.service.session.UserHelperService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Captor;
+import org.mockito.ArgumentCaptor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.client.RestClient;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ExtendWith(MockitoExtension.class)
 public class TestUserServiceImpl {
+
     @Autowired
     private MockMvc mockMvc;
 
     @InjectMocks
     private UserServiceImpl testUserService;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private RoleRepository roleRepository;
+
     @Mock
     private UserHelperService userHelperService;
+
+    @Mock
+    private ModelMapper modelMapper;
+
     @Mock
     private PasswordEncoder passwordEncoder;
-    @Mock
-    private RestClient restClient;
-    @Mock
-    private  BudgetRepository budgetRepository;
-    @Mock
+
+    @MockBean
+    private UserDataService userDataService;
+
+    @Autowired
+    private BudgetRepository budgetRepository;
+
+    @Autowired
     private CategoryRepository categoryRepository;
-    @Mock
+
+    @Autowired
     private ExpenseRepository expenseRepository;
-    @Mock
-    private  SavingRepository savingRepository;
+
+    @Autowired
+    private SavingRepository savingRepository;
+
     @Captor
     private ArgumentCaptor<User> userEntityCaptor;
 
-
-    public TestUserServiceImpl() {
-    }
-
     @BeforeEach
-    void setUp(){
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        // Setting up roles
         Role userRole = new Role();
         userRole.setName("USER");
         roleRepository.save(userRole);
+//        when(roleRepository.save(any(Role.class))).thenReturn(userRole);
 
         Role adminRole = new Role();
         adminRole.setName("ADMIN");
         roleRepository.save(adminRole);
+//        when(roleRepository.save(any(Role.class))).thenReturn(adminRole);
+
+        // Create a UserServiceImpl instance with mocks
+        testUserService = new UserServiceImpl(
+                userRepository,
+                roleRepository,
+                new ModelMapper(),
+                passwordEncoder,
+                userHelperService,
+                budgetRepository,
+                categoryRepository,
+                expenseRepository,
+                savingRepository,
+                userDataService
+        );
     }
+
     @Test
     @Transactional
-    void testUserRegistration(){
-        UserRegisterDto userRegisterDto =
-                new UserRegisterDto("testUsername", "testEmail", "testPassword", "testConfirm");
+    void testUserRegistration() {
+        // Arrange
+        UserRegisterDto userRegisterDto = new UserRegisterDto("testUsername", "testEmail", "testPassword", "testConfirm");
+
+        // Mocking dependencies
         when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
-        doNothing().when(restClient).post()
-                .uri(anyString())
-                .body(any())
-                .retrieve();
+//        when(userRepository.findByEmail("testEmail")).thenReturn(Optional.of(new User()));
+
+        // Act
         boolean result = testUserService.registerUser(userRegisterDto);
+
+        // Assert
         Assertions.assertTrue(result);
         Optional<User> registeredUser = userRepository.findByEmail("testEmail");
         Assertions.assertTrue(registeredUser.isPresent());
@@ -97,7 +125,5 @@ public class TestUserServiceImpl {
         Assertions.assertEquals("encodedPassword", user.getPassword());
         Assertions.assertNotNull(user.getRole());
         Assertions.assertEquals("USER", user.getRole().getName());
-
     }
-
 }

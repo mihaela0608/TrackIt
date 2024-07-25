@@ -8,6 +8,7 @@ import com.example.trackit.model.entity.Expense;
 import com.example.trackit.model.entity.Saving;
 import com.example.trackit.model.entity.User;
 import com.example.trackit.repository.*;
+import com.example.trackit.service.UserDataService;
 import com.example.trackit.service.UserService;
 import com.example.trackit.service.session.UserHelperService;
 import jakarta.transaction.Transactional;
@@ -29,11 +30,11 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserHelperService userHelperService;
-    private final RestClient restClient;
     private final BudgetRepository budgetRepository;
     private final CategoryRepository categoryRepository;
     private final ExpenseRepository expenseRepository;
     private final SavingRepository savingRepository;
+    private final UserDataService userDataService;
 
 
 //TODO : MAKE IT INTEGRATION TEST
@@ -52,10 +53,8 @@ public class UserServiceImpl implements UserService {
         UserData userData = new UserData(user.getId());
         userData.setLastMonthSavings(BigDecimal.ZERO);
         userData.setLastMonthExpenses(BigDecimal.ZERO);
-        restClient.post()
-                .uri("http://localhost:8081/api/userdata")
-                .body(userData)
-                .retrieve();
+
+        userDataService.saveUserData(userData);
     }
 
     @Override
@@ -74,10 +73,7 @@ public class UserServiceImpl implements UserService {
         UserData userData = new UserData(user.getId());
         userData.setLastMonthExpenses(user.getExpenses().stream().map(Expense::getAmount).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add));
         userData.setLastMonthSavings(user.getSavings().stream().map(Saving::getSavedAmount).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add));
-        restClient.post()
-                .uri("http://localhost:8081/api/userdata/update")
-                .body(userData)
-                .retrieve();
+        userDataService.updateUserData(userData);
     }
 
     @Override

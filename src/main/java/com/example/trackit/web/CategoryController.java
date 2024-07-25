@@ -49,9 +49,12 @@ public class CategoryController {
         return "all-categories";
     }
     @DeleteMapping("/delete/{categoryName}")
-    public String deleteCategory(@PathVariable String categoryName){
-        categoryService.deleteCategory(categoryName);
+    public String deleteCategory(@PathVariable String categoryName, RedirectAttributes redirectAttributes){
+        boolean isDeleted = categoryService.deleteCategory(categoryName);
+
+        if (!isDeleted) {
+            redirectAttributes.addFlashAttribute("deleteError", true);
+        }
         return "redirect:/categories/all";
     }
-    //TODO: THINK ABOUT WHEN CATEGORY IS USED
 }

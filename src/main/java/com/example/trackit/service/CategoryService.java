@@ -10,5 +10,5 @@ public interface CategoryService {
     List<Category> getAllForUser();
     boolean addNewCategory(AddCategoryDto addCategoryDto);
     List<CategoryDetailsDto> getAllDetails();
-    void deleteCategory(String categoryName);
+    boolean deleteCategory(String categoryName);
 }
