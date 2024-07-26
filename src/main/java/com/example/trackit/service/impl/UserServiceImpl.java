@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         User user = getUser(userRegisterDto);
-        User save = userRepository.save(user);
+        User save = userRepository.saveAndFlush(user);
         addLastMonthProfile(save);
         return true;
     }
@@ -90,10 +90,10 @@ public class UserServiceImpl implements UserService {
         if (userHelperService.getUser().getId() != 1){
             throw new NullPointerException();
         }
-        categoryRepository.deleteAll(categoryRepository.findByUser(user));
         budgetRepository.deleteAll(budgetRepository.findByUser(user));
         savingRepository.deleteAll(savingRepository.findByUser(user));
         expenseRepository.deleteAll(expenseRepository.findByUser(user));
+        categoryRepository.deleteAll(categoryRepository.findByUser(user));
         userRepository.deleteById(id);
     }
 

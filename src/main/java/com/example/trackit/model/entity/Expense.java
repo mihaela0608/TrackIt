@@ -30,4 +30,10 @@ public class Expense extends BaseEntity{
     public Expense() {
         this.date = LocalDate.now();
     }
+
+    public Expense(Category category, BigDecimal amount) {
+        this.date = LocalDate.now();
+        this.category = category;
+        this.amount = amount;
+    }
 }

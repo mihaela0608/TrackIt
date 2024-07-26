@@ -1,8 +1,7 @@
 package com.example.trackit.service;
 
 import com.example.trackit.model.dto.UserRegisterDto;
-import com.example.trackit.model.entity.Role;
-import com.example.trackit.model.entity.User;
+import com.example.trackit.model.entity.*;
 import com.example.trackit.repository.*;
 import com.example.trackit.service.impl.UserServiceImpl;
 import com.example.trackit.service.session.UserHelperService;
@@ -13,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Captor;
-import org.mockito.ArgumentCaptor;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,9 +21,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -48,8 +48,6 @@ public class TestUserServiceImpl {
     @Mock
     private UserHelperService userHelperService;
 
-    @Mock
-    private ModelMapper modelMapper;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -69,8 +67,7 @@ public class TestUserServiceImpl {
     @Autowired
     private SavingRepository savingRepository;
 
-    @Captor
-    private ArgumentCaptor<User> userEntityCaptor;
+
 
     @BeforeEach
     void setUp() {
@@ -135,7 +132,7 @@ public class TestUserServiceImpl {
         boolean result2 = testUserService.registerUser(userRegisterDto2);
 
         // Assert
-        Assertions.assertTrue(result);
+        Assertions.assertTrue(result2);
         Optional<User> registeredUser2 = userRepository.findByEmail("testEmail2");
         Assertions.assertTrue(registeredUser2.isPresent());
         User user2 = registeredUser2.get();
@@ -145,4 +142,82 @@ public class TestUserServiceImpl {
         Assertions.assertNotNull(user2.getRole());
         Assertions.assertEquals("USER", user2.getRole().getName());
     }
+
+    @Test
+    void testDeleteUserThrowsWhenIsNotAdmin(){
+        UserRegisterDto userRegisterDto = new UserRegisterDto("testUsername", "testEmail", "testPassword", "testConfirm");
+        when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
+
+        testUserService.registerUser(userRegisterDto);
+
+        Optional<User> optionalUser = userRepository.findByEmail("testEmail");
+        Assertions.assertTrue(optionalUser.isPresent());
+        User user = optionalUser.get();
+
+        User currentUser = new User();
+        currentUser.setId(5L);
+        when(userHelperService.getUser()).thenReturn(currentUser);
+
+        Assertions.assertThrows(NullPointerException.class, () -> testUserService.deleteUser(user.getId()));
+    }
+
+    @Test
+    void testDeleteUserThrowsWhenUserIsInvalid(){
+        Assertions.assertThrows(NoSuchElementException.class, () -> testUserService.deleteUser(5L));
+    }
+
+    @Test
+    void testDeleteUserDeletesEverythingForTheUser(){
+        // Arrange: Register an admin user
+        UserRegisterDto userRegisterDtoAdmin = new UserRegisterDto("admin", "admin@ad", "testPassword", "testConfirm");
+        when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
+        testUserService.registerUser(userRegisterDtoAdmin);
+        Optional<User> optionalAdmin = userRepository.findByEmail("admin@ad");
+        Assertions.assertTrue(optionalAdmin.isPresent());
+        User adminUser = optionalAdmin.get();
+        adminUser.setId(1L);
+        userRepository.deleteAll();
+        userRepository.save(adminUser);
+
+        // Arrange: Register a regular user
+        UserRegisterDto userRegisterDto = new UserRegisterDto("testUsername", "testEmail", "testPassword", "testConfirm");
+        testUserService.registerUser(userRegisterDto);
+
+        // Retrieve and verify the registered regular user
+        Optional<User> optionalUser = userRepository.findByEmail("testEmail");
+        Assertions.assertTrue(optionalUser.isPresent());
+        User user = optionalUser.get();
+
+        // Arrange: Add related entities (categories, budgets, savings, expenses) for the regular user
+        Category categoryForSaving = new Category("Food", "Some food");
+        categoryForSaving.setUser(user);
+        categoryRepository.saveAndFlush(categoryForSaving);
+
+        Budget budget = new Budget(BigDecimal.TEN, BigDecimal.ZERO, categoryForSaving);
+        budget.setUser(user);
+        budgetRepository.saveAndFlush(budget);
+
+        Saving saving = new Saving("Rent", BigDecimal.valueOf(400));
+        saving.setUser(user);
+        savingRepository.saveAndFlush(saving);
+
+        Expense expense = new Expense(categoryForSaving, BigDecimal.TEN);
+        expense.setUser(user);
+        expenseRepository.saveAndFlush(expense);
+
+        // Mock the admin user in userHelperService
+        when(userHelperService.getUser()).thenReturn(adminUser);
+
+        // Act: Delete the regular user
+        testUserService.deleteUser(user.getId());
+
+        // Assert: Verify that all related entities and the user are deleted
+        Assertions.assertEquals(0, categoryRepository.count());
+        Assertions.assertEquals(0, budgetRepository.count());
+        Assertions.assertEquals(0, savingRepository.count());
+        Assertions.assertEquals(0, expenseRepository.count());
+        Assertions.assertTrue(userRepository.findByEmail(userRegisterDto.getEmail()).isEmpty());
+    }
+
+
 }
