@@ -75,6 +75,12 @@ public class TestUserServiceImpl {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        savingRepository.deleteAll();
+        budgetRepository.deleteAll();
+        categoryRepository.deleteAll();
+        expenseRepository.deleteAll();
+        userRepository.deleteAll();
+        roleRepository.deleteAll();
 
         // Setting up roles
         Role userRole = new Role();
@@ -124,6 +130,19 @@ public class TestUserServiceImpl {
         Assertions.assertEquals(userRegisterDto.getEmail(), user.getEmail());
         Assertions.assertEquals("encodedPassword", user.getPassword());
         Assertions.assertNotNull(user.getRole());
-        Assertions.assertEquals("USER", user.getRole().getName());
+        Assertions.assertEquals("ADMIN", user.getRole().getName());
+        UserRegisterDto userRegisterDto2 = new UserRegisterDto("testUsername", "testEmail2", "testPassword", "testConfirm");
+        boolean result2 = testUserService.registerUser(userRegisterDto2);
+
+        // Assert
+        Assertions.assertTrue(result);
+        Optional<User> registeredUser2 = userRepository.findByEmail("testEmail2");
+        Assertions.assertTrue(registeredUser2.isPresent());
+        User user2 = registeredUser2.get();
+        Assertions.assertEquals(userRegisterDto2.getUsername(), user2.getUsername());
+        Assertions.assertEquals(userRegisterDto2.getEmail(), user2.getEmail());
+        Assertions.assertEquals("encodedPassword", user2.getPassword());
+        Assertions.assertNotNull(user2.getRole());
+        Assertions.assertEquals("USER", user2.getRole().getName());
     }
 }
