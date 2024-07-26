@@ -19,4 +19,9 @@ public class AddFromBudget {
     @Positive(message = "{addFromBudget.newAmount.Positive}")
     @NotNull(message = "{addFromBudget.newAmount.NotNull}")
     private BigDecimal newAmount;
+
+    public AddFromBudget(String categoryName, BigDecimal newAmount) {
+        this.categoryName = categoryName;
+        this.newAmount = newAmount;
+    }
 }

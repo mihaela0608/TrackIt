@@ -46,4 +46,14 @@ public class User extends BaseEntity{
         this.savings = new ArrayList<>();
         this.registrationDate = LocalDate.now();
     }
+
+    public User(String username, String email, String password) {
+        this.budgets = new ArrayList<>();
+        this.expenses = new ArrayList<>();
+        this.savings = new ArrayList<>();
+        this.registrationDate = LocalDate.now();
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }

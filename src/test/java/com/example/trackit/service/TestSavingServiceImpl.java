@@ -1,37 +1,64 @@
 package com.example.trackit.service;
 
+import com.example.trackit.model.dto.AddFromBudget;
+import com.example.trackit.model.entity.Budget;
+import com.example.trackit.model.entity.Category;
 import com.example.trackit.model.entity.Saving;
 import com.example.trackit.model.entity.User;
 import com.example.trackit.repository.BudgetRepository;
+import com.example.trackit.repository.CategoryRepository;
 import com.example.trackit.repository.SavingRepository;
+import com.example.trackit.repository.UserRepository;
 import com.example.trackit.service.impl.SavingServiceImpl;
 import com.example.trackit.service.session.UserHelperService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 public class TestSavingServiceImpl {
-    @Mock
+    @Autowired
     private SavingRepository savingRepository;
     @Mock
-    private ModelMapper modelMapper;
-    @Mock
     private UserHelperService userHelperService;
-    @Mock
+    @Autowired
     private BudgetRepository budgetRepository;
 
     @InjectMocks
     private SavingServiceImpl savingService;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @MockBean
+    private UserDataService userDataService;
+
+    @BeforeEach
+    void setUp(){
+        savingRepository.deleteAll();
+        budgetRepository.deleteAll();
+        savingService = new SavingServiceImpl(
+                savingRepository,
+                new ModelMapper(),
+                userHelperService,
+                budgetRepository
+        );
+
+    }
 
     @Test
     void isSavingIdValidForUser(){
@@ -46,5 +73,30 @@ public class TestSavingServiceImpl {
         boolean savingIdValidForUser2 = savingService.isSavingIdValidForUser(2);
         Assertions.assertFalse(savingIdValidForUser2);
 
+    }
+
+    @Test
+    void testAddFromBudgetReturnsFalseWhenBudgetNotExists(){
+        AddFromBudget addFromBudget = new AddFromBudget("Something strange", BigDecimal.TEN);
+        User user = new User();
+        when(userHelperService.getUser()).thenReturn(user);
+        boolean added = savingService.addFromBudget(5L, addFromBudget);
+        Assertions.assertFalse(added);
+    }
+    @Test
+    void testAddFromBudgetReturnsFalseWhenBudgetHasNotEnoughMoney(){
+        AddFromBudget addFromBudget = new AddFromBudget("Food", BigDecimal.TEN);
+        User user = new User(
+                "test", "test@test", "test123"
+        );
+        user = userRepository.save(user);
+        when(userHelperService.getUser()).thenReturn(user);
+        Category category = new Category("Food", "Eating");
+        category.setUser(user);
+        category = categoryRepository.save(category);
+        Budget budget = new Budget(BigDecimal.TEN, BigDecimal.TEN, category);
+        budget.setUser(user);
+        boolean added = savingService.addFromBudget(1L, addFromBudget);
+        Assertions.assertFalse(added);
     }
 }
