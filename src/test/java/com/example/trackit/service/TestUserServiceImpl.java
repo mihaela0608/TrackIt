@@ -1,5 +1,6 @@
 package com.example.trackit.service;
 
+import com.example.trackit.model.dto.UserDetailsDto;
 import com.example.trackit.model.dto.UserRegisterDto;
 import com.example.trackit.model.entity.*;
 import com.example.trackit.repository.*;
@@ -22,6 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -217,6 +220,33 @@ public class TestUserServiceImpl {
         Assertions.assertEquals(0, savingRepository.count());
         Assertions.assertEquals(0, expenseRepository.count());
         Assertions.assertTrue(userRepository.findByEmail(userRegisterDto.getEmail()).isEmpty());
+    }
+
+    @Test
+    void testGetUserDetails() {
+        User user = new User();
+        user.setId(2L);
+        user.setRegistrationDate(LocalDate.MIN);
+
+        Expense expense1 = new Expense();
+        expense1.setAmount(BigDecimal.valueOf(50));
+        Expense expense2 = new Expense();
+        expense2.setAmount(BigDecimal.valueOf(100));
+        user.setExpenses(Arrays.asList(expense1, expense2));
+
+        Saving saving1 = new Saving();
+        saving1.setSavedAmount(BigDecimal.valueOf(200));
+        Saving saving2 = new Saving();
+        saving2.setSavedAmount(BigDecimal.valueOf(300));
+        user.setSavings(Arrays.asList(saving1, saving2));
+
+        when(userHelperService.getUser()).thenReturn(user);
+
+        UserDetailsDto userDetailsDto = testUserService.getUserDetails();
+
+        Assertions.assertEquals(BigDecimal.valueOf(150), userDetailsDto.getExpensesSum());
+        Assertions.assertEquals(BigDecimal.valueOf(500), userDetailsDto.getSavingsSum());
+        Assertions.assertEquals(String.valueOf(LocalDate.MIN), userDetailsDto.getRegistrationDate());
     }
 
 
