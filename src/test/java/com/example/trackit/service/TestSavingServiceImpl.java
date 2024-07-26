@@ -49,6 +49,8 @@ public class TestSavingServiceImpl {
 
     @BeforeEach
     void setUp(){
+        categoryRepository.deleteAll();
+        userRepository.deleteAll();
         savingRepository.deleteAll();
         budgetRepository.deleteAll();
         savingService = new SavingServiceImpl(
@@ -98,5 +100,35 @@ public class TestSavingServiceImpl {
         budget.setUser(user);
         boolean added = savingService.addFromBudget(1L, addFromBudget);
         Assertions.assertFalse(added);
+    }
+
+    @Test
+    void testDeleteSavingThrowsWhenUserIsNotValid(){
+        User user = new User(
+                "test", "test@test", "test123"
+        );
+        user = userRepository.save(user);
+        when(userHelperService.getUser()).thenReturn(user);
+        Saving saving = new Saving("Car", BigDecimal.valueOf(5000));
+        User realUser = new User(
+                "real", "real@test", "test123"
+        );
+        userRepository.save(realUser);
+        saving.setUser(realUser);
+        saving = savingRepository.save(saving);
+        Saving finalSaving = saving;
+        Assertions.assertThrows(NullPointerException.class,() -> savingService.deleteSaving(finalSaving.getId()));
+    }
+    @Test
+    void testDeleteSaving(){
+        User user = new User(
+                "test", "test@test", "test123"
+        );
+        user = userRepository.save(user);
+        when(userHelperService.getUser()).thenReturn(user);
+        Saving saving = new Saving("Car", BigDecimal.valueOf(5000));
+        saving = savingRepository.save(saving);
+        Saving finalSaving = saving;
+        Assertions.assertThrows(NullPointerException.class,() -> savingService.deleteSaving(finalSaving.getId()));
     }
 }
