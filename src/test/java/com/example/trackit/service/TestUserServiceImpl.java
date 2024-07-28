@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -224,29 +225,47 @@ public class TestUserServiceImpl {
 
     @Test
     void testGetUserDetails() {
-        User user = new User();
-        user.setId(2L);
+        // Setup mock User object
+        User user = new User("ivan", "ivan@gmail.com", "ivcho");
+        user.setId(1L);
         user.setRegistrationDate(LocalDate.MIN);
 
-        Expense expense1 = new Expense();
-        expense1.setAmount(BigDecimal.valueOf(50));
-        Expense expense2 = new Expense();
-        expense2.setAmount(BigDecimal.valueOf(100));
-        user.setExpenses(Arrays.asList(expense1, expense2));
+        Category category = new Category("Food", "Something for eating");
+        category.setUser(user);
 
-        Saving saving1 = new Saving();
-        saving1.setSavedAmount(BigDecimal.valueOf(200));
-        Saving saving2 = new Saving();
-        saving2.setSavedAmount(BigDecimal.valueOf(300));
+        Saving saving1 = new Saving("Emergency Fund");
+        saving1.setUser(user);
+        saving1.setSavedAmount(BigDecimal.valueOf(300));
+        Saving saving2 = new Saving("Vacation Fund");
+        saving2.setUser(user);
+        saving2.setSavedAmount(BigDecimal.valueOf(200));
+
+        Expense expense1 = new Expense(category, BigDecimal.valueOf(100));
+        expense1.setUser(user);
+        Expense expense2 = new Expense(category, BigDecimal.valueOf(50));
+        expense2.setUser(user);
+
+        user.setExpenses(Arrays.asList(expense1, expense2));
         user.setSavings(Arrays.asList(saving1, saving2));
 
-        when(userHelperService.getUser()).thenReturn(user);
+        // Setup mock UserDetailsDto for mapToDetails
+        UserDetailsDto mappedDetails = new UserDetailsDto();
+        mappedDetails.setLastMonthExpenses(BigDecimal.valueOf(200));
+        mappedDetails.setLastMonthSavings(BigDecimal.valueOf(100));
 
+        // Mock the behaviors
+        when(userHelperService.getUser()).thenReturn(user);
+        when(userDataService.mapToDetails(any(UserDetailsDto.class))).thenReturn(mappedDetails);
+
+        // Test the method
         UserDetailsDto userDetailsDto = testUserService.getUserDetails();
 
+        // Assertions
         Assertions.assertEquals(BigDecimal.valueOf(150), userDetailsDto.getExpensesSum());
         Assertions.assertEquals(BigDecimal.valueOf(500), userDetailsDto.getSavingsSum());
         Assertions.assertEquals(String.valueOf(LocalDate.MIN), userDetailsDto.getRegistrationDate());
+        Assertions.assertEquals(BigDecimal.valueOf(200), userDetailsDto.getLastMonthExpenses());
+        Assertions.assertEquals(BigDecimal.valueOf(100), userDetailsDto.getLastMonthSavings());
     }
 
 

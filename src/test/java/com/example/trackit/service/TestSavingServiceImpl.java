@@ -11,6 +11,7 @@ import com.example.trackit.repository.SavingRepository;
 import com.example.trackit.repository.UserRepository;
 import com.example.trackit.service.impl.SavingServiceImpl;
 import com.example.trackit.service.session.UserHelperService;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -120,17 +121,20 @@ public class TestSavingServiceImpl {
         Assertions.assertThrows(NullPointerException.class,() -> savingService.deleteSaving(finalSaving.getId()));
     }
     @Test
+    @Transactional
     void testDeleteSaving(){
 
-        //TODO: NOT WORKING TEST JUST IN PROGRESS
         User user = new User(
                 "test", "test@test", "test123"
         );
         user = userRepository.save(user);
         when(userHelperService.getUser()).thenReturn(user);
         Saving saving = new Saving("Car", BigDecimal.valueOf(5000));
+        saving.setUser(user);
         saving = savingRepository.save(saving);
-        Saving finalSaving = saving;
-        Assertions.assertThrows(NullPointerException.class,() -> savingService.deleteSaving(finalSaving.getId()));
+
+        savingService.deleteSaving(saving.getId());
+        Assertions.assertEquals(0, savingRepository.count());
+        Assertions.assertEquals(0, (long) userRepository.findByEmail("test@test").get().getSavings().size());
     }
 }

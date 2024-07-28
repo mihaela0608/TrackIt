@@ -31,4 +31,8 @@ public class Saving extends BaseEntity{
         this.goal = goal;
         this.targetAmount = targetAmount;
     }
+
+    public Saving(String goal) {
+        this.goal = goal;
+    }
 }

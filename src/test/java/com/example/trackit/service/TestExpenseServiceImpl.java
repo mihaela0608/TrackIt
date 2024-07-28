@@ -79,4 +79,6 @@ public class TestExpenseServiceImpl {
         Assertions.assertEquals("Food", result.get(0).getCategoryName());
         Assertions.assertEquals("Transport", result.get(1).getCategoryName());
     }
+
+
 }
