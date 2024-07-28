@@ -12,11 +12,14 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 public class UserDetailsDto {
+    private long id;
     private String username;
     private String email;
     private String registrationDate;
     private long hereFrom;
     private BigDecimal expensesSum;
     private BigDecimal savingsSum;
+    private BigDecimal lastMonthExpenses;
+    private BigDecimal lastMonthSavings;
 
 }

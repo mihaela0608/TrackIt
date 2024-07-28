@@ -11,44 +11,55 @@
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <div class="content-wrapper">
-<div class="container" th:object="${userData}">
-    <!-- Profile Header -->
-    <div class="profile-header">
-        <div class="profile-icon">
-            <i class="fas fa-user"></i>
+    <div class="container" th:object="${userData}">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1 th:text="${userData.username}">John Doe</h1>
         </div>
-        <h1 th:text="${userData.username}">John Doe</h1>
-    </div>
 
-    <!-- Profile Details -->
-    <div class="profile-details">
-        <h2>Profile Information</h2>
-        <p><strong>Email:</strong> <span th:text="${userData.email}">john.doe@example.com</span></p>
-        <p><strong>Registered at:</strong> <span th:text="${userData.registrationDate}">123</span></p>
-    </div>
-
-    <!-- Financial Summary -->
-    <div class="financial-summary">
-        <h2>Financial Summary</h2>
-        <div class="summary-item">
-            <strong>Current Expenses:</strong> <span th:text="${userData.expensesSum}">$1,200</span>
+        <!-- Profile Details -->
+        <div class="profile-details">
+            <h2>Profile Information</h2>
+            <p><strong>Email:</strong> <span th:text="${userData.email}">john.doe@example.com</span></p>
+            <p><strong>Registered at:</strong> <span th:text="${userData.registrationDate}">123</span></p>
         </div>
-        <div class="summary-item">
-            <strong>Current Savings:</strong> <span th:text="${userData.savingsSum}">$800</span>
+
+        <!-- Financial Summary -->
+        <div class="financial-summary">
+            <h2>Financial Summary</h2>
+            <div class="summary-item">
+                <strong>Current Expenses:</strong> <span th:text="${userData.expensesSum}">$1,200</span>
+            </div>
+            <div class="summary-item">
+                <strong>Current Savings:</strong> <span th:text="${userData.savingsSum}">$800</span>
+            </div>
+        </div>
+
+        <!-- Last Month Financial Summary -->
+        <div class="last-month-summary">
+            <h2>Last Month's Financial Summary</h2>
+            <div class="summary-item">
+                <strong>Last Month's Expenses:</strong> <span th:text="${userData.lastMonthExpenses}">$1,000</span>
+            </div>
+            <div class="summary-item">
+                <strong>Last Month's Savings:</strong> <span th:text="${userData.lastMonthSavings}">$900</span>
+            </div>
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="welcome-message">
+            <h2>Welcome Back, <span th:text="${userData.username}">John Doe</span>!</h2>
+            <p>We hope you're having a great day! Here’s a quick summary of your current financial status. If you need any assistance or have any questions, feel free to reach out to our support team.</p>
+        </div>
+
+        <!-- Back Button -->
+        <div class="back-button">
+            <a th:href="@{/home}">Back to Home</a>
         </div>
     </div>
-
-    <!-- Welcome Message -->
-    <div class="welcome-message">
-        <h2>Welcome Back, <span th:text="${userData.username}">John Doe</span>!</h2>
-        <p>We hope you're having a great day! Here’s a quick summary of your current financial status. If you need any assistance or have any questions, feel free to reach out to our support team.</p>
-    </div>
-
-    <!-- Back Button -->
-    <div class="back-button">
-        <a th:href="@{/home}">Back to Home</a>
-    </div>
-</div>
 </div>
 </body>
 </html>

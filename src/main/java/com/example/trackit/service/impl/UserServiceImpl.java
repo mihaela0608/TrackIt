@@ -65,6 +65,9 @@ public class UserServiceImpl implements UserService {
         userDetailsDto.setRegistrationDate(String.valueOf(user.getRegistrationDate()));
         userDetailsDto.setExpensesSum(user.getExpenses().stream().map(Expense::getAmount).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add));
         userDetailsDto.setSavingsSum(user.getSavings().stream().map(Saving::getSavedAmount).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add));
+        UserDetailsDto userDetailsDto2 = userDataService.mapToDetails(userDetailsDto);
+        userDetailsDto.setLastMonthExpenses(userDetailsDto2.getLastMonthExpenses());
+        userDetailsDto.setLastMonthSavings(userDetailsDto2.getLastMonthSavings());
         return userDetailsDto;
     }
 

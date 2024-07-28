@@ -1,4 +1,4 @@
-    /* Basic Reset */
+/* Basic Reset */
 * {
     margin: 0;
     padding: 0;
@@ -14,12 +14,12 @@ body {
     padding: 0;
     margin: 0;
 }
-    .content-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
 /* Main Container */
 .container {
@@ -97,6 +97,23 @@ body {
     margin-bottom: 15px;
 }
 
+/* Last Month Financial Summary */
+.last-month-summary {
+    margin-bottom: 20px;
+}
+
+.last-month-summary h2 {
+    font-size: 1.8rem;
+    color: #6a1b9a;
+    margin-bottom: 10px;
+}
+
+.last-month-summary .summary-item {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
 /* Welcome Message */
 .welcome-message {
     margin-bottom: 20px;
@@ -143,7 +160,7 @@ body {
         font-size: 1.8rem;
     }
 
-    .profile-details h2, .financial-summary h2 {
+    .profile-details h2, .financial-summary h2, .last-month-summary h2 {
         font-size: 1.5rem;
     }
 
@@ -159,7 +176,7 @@ body {
         font-size: 1.5rem;
     }
 
-    .profile-details h2, .financial-summary h2 {
+    .profile-details h2, .financial-summary h2, .last-month-summary h2 {
         font-size: 1.2rem;
     }
 
