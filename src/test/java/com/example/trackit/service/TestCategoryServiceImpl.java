@@ -3,6 +3,8 @@ package com.example.trackit.service;
 import com.example.trackit.model.entity.Category;
 import com.example.trackit.model.entity.User;
 import com.example.trackit.repository.CategoryRepository;
+import com.example.trackit.repository.ExpenseRepository;
+import com.example.trackit.repository.SavingRepository;
 import com.example.trackit.repository.UserRepository;
 import com.example.trackit.service.impl.CategoryServiceImpl;
 import com.example.trackit.service.session.UserHelperService;
@@ -30,11 +32,17 @@ public class TestCategoryServiceImpl {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private SavingRepository savingRepository;
+    @Autowired
+    private ExpenseRepository expenseRepository;
+    @Autowired
     private CategoryServiceImpl categoryService;
 
     @BeforeEach
     void setUp(){
         categoryRepository.deleteAll();
+        expenseRepository.deleteAll();
+        savingRepository.deleteAll();
         userRepository.deleteAll();
         categoryService = new CategoryServiceImpl(categoryRepository, userHelperService, new ModelMapper());
     }
