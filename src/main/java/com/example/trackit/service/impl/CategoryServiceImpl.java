@@ -28,7 +28,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getAllForUser() {
-        return categoryRepository.findAll().stream().filter(c -> c.getUser().getId() == 1 || c.getUser().getId() == userHelperService.getUser().getId()).toList();
+        return categoryRepository.findAll().stream()
+                .filter(c -> c.getUser().getId() == 1 || c.getUser().getId() == userHelperService.getUser().getId()).toList();
     }
 
     @Override
