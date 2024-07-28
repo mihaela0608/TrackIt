@@ -50,6 +50,7 @@ public class TestCategoryServiceImpl {
 
         @Test
         void getAllForUser() {
+        //TODO: SMALL PROBLEM
             User admin = new User("admin", "admin@abv.bg", "admincheto");
             admin.setId(1L);
             admin = userRepository.save(admin);
