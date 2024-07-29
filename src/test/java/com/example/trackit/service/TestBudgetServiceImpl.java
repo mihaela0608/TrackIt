@@ -1,6 +1,7 @@
 package com.example.trackit.service;
 
 
+import com.example.trackit.model.dto.AddBudgetDto;
 import com.example.trackit.model.dto.ViewAllBudgetDto;
 import com.example.trackit.model.entity.Budget;
 import com.example.trackit.model.entity.Category;
@@ -18,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,6 +69,27 @@ public class TestBudgetServiceImpl {
         Assertions.assertEquals(viewAllBudgetDto.getSpentAmount(), testBudget1.getSpentAmount());
         Assertions.assertEquals(viewAllBudgetDto.getCategoryName(), testBudget1.getCategory().getName());
 
+    }
+
+
+    @Test
+    void testAddBudgetDuplicateCategory() {
+        AddBudgetDto addBudgetDto = new AddBudgetDto();
+        addBudgetDto.setAmount(BigDecimal.valueOf(100.00));
+        addBudgetDto.setCategoryName("Groceries");
+
+        Category category = new Category("Groceries");
+        when(categoryRepository.findByName("Groceries")).thenReturn(Optional.of(category));
+
+        Budget existingBudget = new Budget(BigDecimal.valueOf(100.00), BigDecimal.ZERO, category);
+        User user = new User();
+        user.setBudgets(List.of(existingBudget));
+
+        when(userHelperService.getUser()).thenReturn(user);
+
+        boolean result = budgetService.addBudget(addBudgetDto);
+
+        Assertions.assertFalse(result);
     }
 
 

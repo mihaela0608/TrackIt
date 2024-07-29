@@ -1,6 +1,8 @@
 package com.example.trackit.service;
 
 import com.example.trackit.model.dto.AddCategoryDto;
+import com.example.trackit.model.dto.CategoryDetailsDto;
+import com.example.trackit.model.entity.Budget;
 import com.example.trackit.model.entity.Category;
 import com.example.trackit.model.entity.User;
 import com.example.trackit.repository.*;
@@ -17,7 +19,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -94,6 +99,98 @@ public class TestCategoryServiceImpl {
         boolean added = categoryService.addNewCategory(addCategoryDto);
 
         Assertions.assertFalse(added);
+    }
+    @Test
+    void testAddNewCategoryReturnsTrueAndCreatesNew(){
+        User user = new User("ivan", "ivan@gmail.com", "ivo88");
+        user = userRepository.save(user);
+        when(userHelperService.getUser()).thenReturn(user);
+
+
+        AddCategoryDto addCategoryDto = new AddCategoryDto("Food", "Restaurant");
+        boolean added = categoryService.addNewCategory(addCategoryDto);
+
+        Assertions.assertTrue(added);
+        Assertions.assertEquals(1, categoryRepository.findByUser(user).size());
+        Category category = categoryRepository.findByUser(user).get(0);
+        Assertions.assertNotNull(category);
+        Assertions.assertEquals("Food", category.getName());
+        Assertions.assertEquals("Restaurant", category.getDescription());
+
+    }
+
+    @Test
+    void deleteCategoryThrowsWhenNotFound(){
+        User user = new User("ivan", "ivan@gmail.com", "ivo88");
+        user = userRepository.save(user);
+        when(userHelperService.getUser()).thenReturn(user);
+
+        Category category = new Category("Food", "Eating");
+        category.setUser(user);
+        categoryRepository.save(category);
+
+
+        Assertions.assertThrows(NoSuchElementException.class,() -> categoryService.deleteCategory("Gym"));
+
+    }
+    @Test
+    void deleteCategoryReturnsFalseWhenCategoryIsUsed(){
+        User user = new User("ivan", "ivan@gmail.com", "ivo88");
+        user = userRepository.save(user);
+
+
+        Category category = new Category("Food", "Eating");
+        category.setUser(user);
+        categoryRepository.save(category);
+        Budget budget = new Budget(BigDecimal.TEN, BigDecimal.ZERO, category);
+        budget.setUser(user);
+        budget = budgetRepository.save(budget);
+        user.setBudgets(List.of(budget));
+        userRepository.save(user);
+        when(userHelperService.getUser()).thenReturn(user);
+
+
+
+        Assertions.assertFalse(categoryService.deleteCategory("Food"));
+
+    }
+
+    @Test
+    void deleteCategoryReturnsTrue(){
+        User user = new User("ivan", "ivan@gmail.com", "ivo88");
+        user = userRepository.save(user);
+
+
+        Category category = new Category("Food", "Eating");
+     category.setUser(user);
+        categoryRepository.save(category);
+        when(userHelperService.getUser()).thenReturn(user);
+
+        boolean added = categoryService.deleteCategory("Food");
+        Assertions.assertTrue(added);
+        Optional<Category> category1 = categoryRepository.findByName("Food");
+        Assertions.assertTrue(category1.isEmpty());
+    }
+
+    @Test
+    void getAllDetails(){
+        User user = new User("ivan", "ivan@gmail.com", "ivo88");
+        user = userRepository.save(user);
+
+
+        Category category = new Category("Food", "Eating");
+        category.setUser(user);
+        categoryRepository.save(category);
+        when(userHelperService.getUser()).thenReturn(user);
+
+        List<CategoryDetailsDto> allDetails = categoryService.getAllDetails();
+
+        Assertions.assertNotNull(allDetails);
+        Assertions.assertEquals(1, allDetails.size());
+        CategoryDetailsDto categoryDetailsDto = allDetails.get(0);
+        Assertions.assertEquals(categoryDetailsDto.getCategoryName(), category.getName());
+        Assertions.assertEquals(categoryDetailsDto.getDescription(), category.getDescription());
+        Assertions.assertEquals(categoryDetailsDto.getUserId(), user.getId());
     }
 
 
