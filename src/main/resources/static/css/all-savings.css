@@ -115,13 +115,7 @@ p.subtitle {
     color: #fff;
 }
 
-.button-group a.edit {
-    background-color: #66bb6a;
-}
 
-.button-group a.edit:hover {
-    background-color: #388e3c;
-}
 
 .button-group a.add {
     background-color: #ffa726;
