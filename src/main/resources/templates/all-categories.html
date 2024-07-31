@@ -31,10 +31,8 @@
 </body>
 <script th:inline="javascript">
     /* <![CDATA[ */
-    // Извличане на атрибута от Thymeleaf
-    var deleteError = /*[[${deleteError}]]*/ false; // Проверете дали стойността е правилно интерполирана
+    var deleteError = /*[[${deleteError}]]*/ false;
 
-    // Проверка и показване на съобщение
     if (deleteError) {
         alert(/*[[#{admin.dashboard.delete.error}]]*/ 'Error deleting category. Please try again.');
     }
