@@ -12,7 +12,6 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <div class="content-wrapper">
     <div class="container" th:object="${userData}">
-        <!-- Profile Header -->
         <div class="profile-header">
             <div class="profile-icon">
                 <i class="fas fa-user"></i>
@@ -20,14 +19,12 @@
             <h1 th:text="${userData.username}">John Doe</h1>
         </div>
 
-        <!-- Profile Details -->
         <div class="profile-details">
             <h2 th:text="#{profile_information}">Profile Information</h2>
             <p><strong th:text="#{email}">Email:</strong> <span th:text="${userData.email}">john.doe@example.com</span></p>
             <p><strong th:text="#{registered_at}">Registered at:</strong> <span th:text="${userData.registrationDate}">123</span></p>
         </div>
 
-        <!-- Financial Summary -->
         <div class="financial-summary">
             <h2 th:text="#{profile_current_info}">Financial Summary</h2>
             <div class="summary-item">
@@ -38,7 +35,6 @@
             </div>
         </div>
 
-        <!-- Last Month Financial Summary -->
         <div class="last-month-summary">
             <h2 th:text="#{last_month_summary}">Last Month's Financial Summary</h2>
             <div class="summary-item">
@@ -49,13 +45,11 @@
             </div>
         </div>
 
-        <!-- Welcome Message -->
         <div class="welcome-message">
             <h2 th:text="#{welcome_back} + ' ' + ${userData.username}">Welcome Back, <span th:text="${userData.username}">John Doe</span>!</h2>
             <p th:text="#{welcome_message}">We hope you're having a great day! Here’s a quick summary of your current financial status. If you need any assistance or have any questions, feel free to reach out to our support team.</p>
         </div>
 
-        <!-- Back Button -->
         <div class="back-button">
             <a th:href="@{/home}" th:text="#{back_to_home}">Back to Home</a>
         </div>

@@ -60,7 +60,7 @@ body {
 .registration-form input {
     width: 100%;
     padding: 15px 40px 15px 20px;
-    margin-bottom: 10px; /* Reduced margin to make space for errors */
+    margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 30px;
     box-sizing: border-box;
@@ -76,7 +76,7 @@ body {
 
 .registration-form .input-icon {
     position: relative;
-    margin-bottom: 20px; /* Increased margin to make space for errors */
+    margin-bottom: 20px;
 }
 
 .registration-form .input-icon input {
@@ -121,7 +121,6 @@ body {
     }
 }
 
-/* Error message styles */
 .registration-form .error {
     color: red;
     font-size: 14px;

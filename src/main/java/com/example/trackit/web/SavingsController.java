@@ -54,7 +54,6 @@ public class SavingsController {
         if (!savingService.isSavingIdValidForUser(id)){
             throw new NullPointerException();
         }
-        //TODO: MAKE IT BETTER
         model.addAttribute("id", id);
         return "choose-saving";
     }

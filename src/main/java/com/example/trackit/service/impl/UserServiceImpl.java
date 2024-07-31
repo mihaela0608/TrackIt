@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
     private final UserDataService userDataService;
 
 
-//TODO : MAKE IT INTEGRATION TEST
     @Override
     public boolean registerUser(UserRegisterDto userRegisterDto) {
         if (userRepository.findByEmail(userRegisterDto.getEmail()).isPresent()){

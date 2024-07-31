@@ -19,7 +19,8 @@
     <div class="hero-content">
         <h1 th:text="#{index_welcome}">Welcome to TrackIt</h1>
         <p th:text="#{index_short_info}">Manage your personal finances with ease and efficiency.</p>
-        <a th:href="@{/register}" class="cta-button" th:text="#{cta_get_started}">Get Started</a>
+        <a th:unless="${@userHelperService.isAuthenticated()}" th:href="@{/register}" class="cta-button" th:text="#{cta_get_started}">Get Started</a>
+        <a th:if="${@userHelperService.isAuthenticated()}" th:href="@{/home}" class="cta-button" th:text="#{cta_get_started}">Get Started</a>
     </div>
 </section>
 <section class="testimonials">
@@ -64,7 +65,8 @@
 <section class="cta-section">
     <h2 th:text="#{cta_section_title}">Ready to take control of your finances?</h2>
     <p th:text="#{cta_section_desc}">Join TrackIt today and start managing your personal finances with ease.</p>
-    <a th:href="@{/register}" class="cta-button" th:text="#{cta_sign_up_now}">Sign Up Now</a>
+    <a th:unless="${@userHelperService.isAuthenticated()}" th:href="@{/register}" class="cta-button" th:text="#{cta_sign_up_now}">Sign Up Now</a>
+    <a th:if="${@userHelperService.isAuthenticated()}" th:href="@{/home}" class="cta-button" th:text="#{cta_get_started}">Get Started</a>
 </section>
 
 <section class="more-info" id="about">
