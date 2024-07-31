@@ -86,7 +86,7 @@
             </p>
             <div class="scrollable">
                 <div class="item" th:each="expense : ${expenses}">
-                    <span><span th:text="${expense.categoryName}"></span>: <span th:field="${expense.amount}">$120</span></span>
+                    <span><span th:text="${expense.categoryName}"></span>: <span th:text="${expense.amount}">$120</span></span>
                 </div>
             </div>
             <div class="btn-container">

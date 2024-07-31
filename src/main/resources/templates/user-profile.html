@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title th:text="#{profile_title}">User Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="/css/navbar.css" rel="stylesheet">
     <link href="/css/user-profile.css" rel="stylesheet">
@@ -22,42 +22,42 @@
 
         <!-- Profile Details -->
         <div class="profile-details">
-            <h2>Profile Information</h2>
-            <p><strong>Email:</strong> <span th:text="${userData.email}">john.doe@example.com</span></p>
-            <p><strong>Registered at:</strong> <span th:text="${userData.registrationDate}">123</span></p>
+            <h2 th:text="#{profile_information}">Profile Information</h2>
+            <p><strong th:text="#{email}">Email:</strong> <span th:text="${userData.email}">john.doe@example.com</span></p>
+            <p><strong th:text="#{registered_at}">Registered at:</strong> <span th:text="${userData.registrationDate}">123</span></p>
         </div>
 
         <!-- Financial Summary -->
         <div class="financial-summary">
-            <h2>Financial Summary</h2>
+            <h2 th:text="#{profile_information}">Financial Summary</h2>
             <div class="summary-item">
-                <strong>Current Expenses:</strong> <span th:text="${userData.expensesSum}">$1,200</span>
+                <strong th:text="#{current_expenses}">Current Expenses:</strong> <span th:text="${userData.expensesSum}">$1,200</span>
             </div>
             <div class="summary-item">
-                <strong>Current Savings:</strong> <span th:text="${userData.savingsSum}">$800</span>
+                <strong th:text="#{current_savings}">Current Savings:</strong> <span th:text="${userData.savingsSum}">$800</span>
             </div>
         </div>
 
         <!-- Last Month Financial Summary -->
         <div class="last-month-summary">
-            <h2>Last Month's Financial Summary</h2>
+            <h2 th:text="#{last_month_summary}">Last Month's Financial Summary</h2>
             <div class="summary-item">
-                <strong>Last Month's Expenses:</strong> <span th:text="${userData.lastMonthExpenses}">$1,000</span>
+                <strong th:text="#{last_month_expenses}">Last Month's Expenses:</strong> <span th:text="${userData.lastMonthExpenses}">$1,000</span>
             </div>
             <div class="summary-item">
-                <strong>Last Month's Savings:</strong> <span th:text="${userData.lastMonthSavings}">$900</span>
+                <strong th:text="#{last_month_savings}">Last Month's Savings:</strong> <span th:text="${userData.lastMonthSavings}">$900</span>
             </div>
         </div>
 
         <!-- Welcome Message -->
         <div class="welcome-message">
-            <h2>Welcome Back, <span th:text="${userData.username}">John Doe</span>!</h2>
-            <p>We hope you're having a great day! Here’s a quick summary of your current financial status. If you need any assistance or have any questions, feel free to reach out to our support team.</p>
+            <h2 th:text="#{welcome_back} + ' ' + ${userData.username}">Welcome Back, <span th:text="${userData.username}">John Doe</span>!</h2>
+            <p th:text="#{welcome_message}">We hope you're having a great day! Here’s a quick summary of your current financial status. If you need any assistance or have any questions, feel free to reach out to our support team.</p>
         </div>
 
         <!-- Back Button -->
         <div class="back-button">
-            <a th:href="@{/home}">Back to Home</a>
+            <a th:href="@{/home}" th:text="#{back_to_home}">Back to Home</a>
         </div>
     </div>
 </div>
