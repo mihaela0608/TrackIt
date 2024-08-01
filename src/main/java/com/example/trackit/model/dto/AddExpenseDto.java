@@ -26,7 +26,7 @@ public class AddExpenseDto {
     private String categoryName;
 
     @NotNull(message = "{addExpenseDto.amount.NotNull}")
-    @Positive(message = "{addExpenseDto.amount.Positive}")
+    @Positive(message = "{amount.Positive}")
     private BigDecimal amount;
 
     @Size(max = 120, message = "{addExpenseDto.description.Size}")
