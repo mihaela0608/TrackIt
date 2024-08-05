@@ -96,6 +96,7 @@ public class UserServiceImpl implements UserService {
         savingRepository.deleteAll(savingRepository.findByUser(user));
         expenseRepository.deleteAll(expenseRepository.findByUser(user));
         categoryRepository.deleteAll(categoryRepository.findByUser(user));
+        userDataService.deleteUser(id);
         userRepository.deleteById(id);
     }
 

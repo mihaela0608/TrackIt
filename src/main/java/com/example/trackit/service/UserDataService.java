@@ -34,4 +34,10 @@ public class UserDataService {
                 .retrieve()
                 .body(UserDetailsDto.class);
     }
+
+    public void deleteUser(Long id) {
+        RestClient.ResponseSpec retrieve = restClient.delete()
+                .uri("http://localhost:8081/api/userdata/" + id)
+                .retrieve();
+    }
 }
