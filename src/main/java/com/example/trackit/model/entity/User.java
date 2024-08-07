@@ -40,6 +40,7 @@ public class User extends BaseEntity{
 
 
 
+
     public User() {
         this.budgets = new ArrayList<>();
         this.expenses = new ArrayList<>();

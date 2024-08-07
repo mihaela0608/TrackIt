@@ -79,14 +79,14 @@ public class TestBudgetServiceImpl {
         addBudgetDto.setCategoryName("Groceries");
 
         Category category = new Category("Groceries");
-        when(categoryRepository.findByName("Groceries")).thenReturn(Optional.of(category));
-
+        User user1 = new User("ivan", "petrov@gmail", "misho");
+        user1.setId(3);
+        category.setUser(user1);
         Budget existingBudget = new Budget(BigDecimal.valueOf(100.00), BigDecimal.ZERO, category);
-        User user = new User();
-        user.setBudgets(List.of(existingBudget));
+        user1.setBudgets(List.of(existingBudget));
 
-        when(userHelperService.getUser()).thenReturn(user);
-
+        when(userHelperService.getUser()).thenReturn(user1);
+        when(categoryRepository.findAll()).thenReturn(List.of(category));
         boolean result = budgetService.addBudget(addBudgetDto);
 
         Assertions.assertFalse(result);

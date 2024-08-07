@@ -52,7 +52,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         optionalBudget.get().setSpentAmount(optionalBudget.get().getSpentAmount().add(addExpenseDto.getAmount()));
         budgetRepository.save(optionalBudget.get());
         Expense expense = modelMapper.map(addExpenseDto, Expense.class);
-        expense.setCategory(categoryRepository.findByName(addExpenseDto.getCategoryName()).get());
+        expense.setCategory(categoryRepository.findAll().stream().filter(category -> category.getName().equals(addExpenseDto.getCategoryName()) && (category.getUser().getId() == 1 || category.getUser().getId() == userHelperService.getUser().getId())).findFirst().get());
         expense.setUser(user);
         expenseRepository.save(expense);
         return true;

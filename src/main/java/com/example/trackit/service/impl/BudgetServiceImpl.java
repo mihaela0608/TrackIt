@@ -3,6 +3,7 @@ package com.example.trackit.service.impl;
 import com.example.trackit.model.dto.AddBudgetDto;
 import com.example.trackit.model.dto.ViewAllBudgetDto;
 import com.example.trackit.model.entity.Budget;
+import com.example.trackit.model.entity.Category;
 import com.example.trackit.model.entity.User;
 import com.example.trackit.repository.BudgetRepository;
 import com.example.trackit.repository.CategoryRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +32,8 @@ public class BudgetServiceImpl implements BudgetService {
     public boolean addBudget(AddBudgetDto addBudgetDto) {
         Budget budget = new Budget();
         budget.setAmount(addBudgetDto.getAmount());
-        budget.setCategory(categoryRepository.findByName(addBudgetDto.getCategoryName()).get());
+        Optional<Category> category = categoryRepository.findAll().stream().filter(c -> c.getName().equals(addBudgetDto.getCategoryName()) && (c.getUser().getId() == 1 || c.getUser().getId() == userHelperService.getUser().getId())).findFirst();
+        budget.setCategory(category.get());
         List<String> categories = userHelperService.getUser().getBudgets().stream().map(b -> b.getCategory().getName()).toList();
         if (categories.contains(budget.getCategory().getName())){
             return false;
